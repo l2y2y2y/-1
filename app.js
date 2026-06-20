@@ -166,6 +166,52 @@ const BASE_EVENTS = [
   e("x004", "extra", 88, 105, "你安静地离开了。有人在整理遗物时，发现你收藏着很多张旧票根。", [], ["自然离世"], true)
 ];
 
+const EXTRA_CHOICE_EVENTS = [
+  choice("c009", "childhood", 10, 12, "你在班里被误会拿了别人的东西，老师让你当众解释。", [
+    opt("A", "冷静说明经过", "心态 +1，魅力 +1，获得“会解释自己”", [{ attr: "mindset", value: 1 }, { attr: "charm", value: 1 }], ["会解释自己"]),
+    opt("B", "委屈地沉默", "心态 -1，获得“把话憋回去”", [{ attr: "mindset", value: -1 }], ["把话憋回去"]),
+    opt("C", "直接顶撞老师", "魅力 +1，家境 -1，获得“早期叛逆”", [{ attr: "charm", value: 1 }, { attr: "family", value: -1 }], ["早期叛逆"])
+  ]),
+  choice("s010", "school", 16, 19, "你发现自己喜欢一件不太被家长认可的事：写歌、画画、拍视频或者做游戏。", [
+    opt("A", "偷偷坚持", "智力 +1，心态 +1，获得“暗线热爱”", [{ attr: "intelligence", value: 1 }, { attr: "mindset", value: 1 }], ["暗线热爱"]),
+    opt("B", "公开争取支持", "魅力 +1，家境 -1，获得“为热爱争辩”", [{ attr: "charm", value: 1 }, { attr: "family", value: -1 }], ["为热爱争辩"]),
+    opt("C", "先放下，专心考试", "智力 +1，心态 -1，获得“延迟梦想”", [{ attr: "intelligence", value: 1 }, { attr: "mindset", value: -1 }], ["延迟梦想"]),
+    opt("D", "把它变成副业尝试", "运气 +1，健康 -1，获得“早期副业”", [{ attr: "luck", value: 1 }, { attr: "health", value: -1 }], ["早期副业"])
+  ]),
+  choice("e009", "earlyCareer", 24, 30, "你收到一个去外地发展的机会，薪水更高，但要离开熟悉的人。", [
+    opt("A", "立刻出发", "运气 +2，心态 -1，获得“远行选择”", [{ attr: "luck", value: 2 }, { attr: "mindset", value: -1 }], ["远行选择"]),
+    opt("B", "留下来经营关系", "魅力 +1，心态 +1，获得“关系经营”", [{ attr: "charm", value: 1 }, { attr: "mindset", value: 1 }], ["关系经营"]),
+    opt("C", "先谈远程合作", "智力 +1，运气 +1，获得“折中方案”", [{ attr: "intelligence", value: 1 }, { attr: "luck", value: 1 }], ["折中方案"])
+  ]),
+  choice("e010", "earlyCareer", 27, 32, "你第一次有了一笔可支配存款，朋友推荐你投资一个热门项目。", [
+    opt("A", "谨慎买一点", "运气 +1，家境 +1，获得“谨慎投资”", [{ attr: "luck", value: 1 }, { attr: "family", value: 1 }], ["谨慎投资"]),
+    opt("B", "重仓冲进去", "运气 +2，心态 -2，获得“高风险偏好”", [{ attr: "luck", value: 2 }, { attr: "mindset", value: -2 }], ["高风险偏好"]),
+    opt("C", "先补健康和学习", "健康 +1，智力 +1，获得“投资自己”", [{ attr: "health", value: 1 }, { attr: "intelligence", value: 1 }], ["投资自己"])
+  ]),
+  choice("w009", "career", 34, 44, "你负责的项目出了事故，团队里有人暗示可以把责任推给新人。", [
+    opt("A", "自己承担该承担的部分", "心态 +1，魅力 +1，家境 -1，获得“承担责任”", [{ attr: "mindset", value: 1 }, { attr: "charm", value: 1 }, { attr: "family", value: -1 }], ["承担责任"]),
+    opt("B", "顺水推舟保住位置", "家境 +1，心态 -2，获得“职业污点”", [{ attr: "family", value: 1 }, { attr: "mindset", value: -2 }], ["职业污点"]),
+    opt("C", "整理证据推动复盘", "智力 +1，魅力 +1，获得“系统复盘”", [{ attr: "intelligence", value: 1 }, { attr: "charm", value: 1 }], ["系统复盘"])
+  ]),
+  choice("w010", "career", 39, 48, "你突然被邀请站到台前：演讲、出镜、带团队或者公开表达观点。", [
+    opt("A", "接受曝光", "魅力 +2，心态 -1，获得“被看见”", [{ attr: "charm", value: 2 }, { attr: "mindset", value: -1 }], ["被看见"]),
+    opt("B", "退到幕后", "智力 +1，健康 +1，获得“幕后操盘”", [{ attr: "intelligence", value: 1 }, { attr: "health", value: 1 }], ["幕后操盘"]),
+    opt("C", "只做一次试试", "运气 +1，魅力 +1，获得“试探性出场”", [{ attr: "luck", value: 1 }, { attr: "charm", value: 1 }], ["试探性出场"])
+  ]),
+  choice("m008", "midlife", 50, 60, "你发现自己已经很久没有真正开心过，于是想给生活开一个新窗口。", [
+    opt("A", "学一门新技能", "智力 +1，心态 +1，获得“中年再学习”", [{ attr: "intelligence", value: 1 }, { attr: "mindset", value: 1 }], ["中年再学习"]),
+    opt("B", "重新经营亲密关系", "魅力 +1，心态 +1，获得“关系修复”", [{ attr: "charm", value: 1 }, { attr: "mindset", value: 1 }], ["关系修复"]),
+    opt("C", "彻底换一种生活节奏", "健康 +1，家境 -1，获得“生活转向”", [{ attr: "health", value: 1 }, { attr: "family", value: -1 }], ["生活转向"])
+  ]),
+  choice("l008", "elder", 66, 79, "年轻人请你给他们一点人生建议，你知道自己不能替他们过人生。", [
+    opt("A", "讲一次失败经历", "魅力 +1，心态 +1，获得“诚实长辈”", [{ attr: "charm", value: 1 }, { attr: "mindset", value: 1 }], ["诚实长辈"]),
+    opt("B", "只给钱不多嘴", "家境 -1，魅力 +1，获得“安静支持”", [{ attr: "family", value: -1 }, { attr: "charm", value: 1 }], ["安静支持"]),
+    opt("C", "鼓励他们自己选", "心态 +2，获得“放手”", [{ attr: "mindset", value: 2 }], ["放手"])
+  ])
+];
+
+const ALL_EVENTS = [...BASE_EVENTS, ...EXTRA_CHOICE_EVENTS];
+
 const GENERIC_EVENTS = [
   "这一年没有大事发生。你照常吃饭、睡觉、赶路，也照常在某个瞬间怀疑人生。",
   "你遇到一点小麻烦，解决后发现自己比想象中耐烦。",
@@ -400,7 +446,7 @@ function nextEvent() {
 }
 
 function pickEvent(life) {
-  const candidates = BASE_EVENTS.filter(event => {
+  const candidates = ALL_EVENTS.filter(event => {
     if (life.usedEventIds.includes(event.id)) return false;
     return event.stage === life.stage && life.age >= event.minAge && life.age <= event.maxAge;
   });
@@ -506,12 +552,19 @@ function buildEnding(life, reason) {
   const total = clamp(Math.round((detailScores.happiness + detailScores.wealth + detailScores.relation + detailScores.health) / 4 + goalBoost), 0, 100);
   const highlight = pickHighlight(life, true);
   const regret = pickHighlight(life, false);
+  const dynamic = buildDynamicResult(life, detailScores, total, matched);
   const report = {
     id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
     endingId: matched.id,
     personName: life.personName || "兰姗",
     title: matched.title,
     summary: matched.summary,
+    dynamicSummary: dynamic.summary,
+    scoreLabel: dynamic.scoreLabel,
+    destinyComment: dynamic.destinyComment,
+    turningPoints: dynamic.turningPoints,
+    futureAdvice: dynamic.futureAdvice,
+    scoreInsights: dynamic.scoreInsights,
     age: life.age,
     score: total,
     detailScores,
@@ -525,8 +578,77 @@ function buildEnding(life, reason) {
     history: life.history.slice(0, 30),
     createdAt: new Date().toLocaleString("zh-CN")
   };
-  report.shareText = `${report.personName}在《重活一遍》里活出了「${report.title}」：${report.score} 分，结束于 ${report.age} 岁。开局运势：${report.fortune?.focus || "自由生长"}。高光：${report.highlight} 遗憾：${report.regret}`;
+  report.shareText = `${report.personName}在《重活一遍》里活出了「${report.title}」：${report.score} 分（${report.scoreLabel}），结束于 ${report.age} 岁。${report.dynamicSummary} 开局运势：${report.fortune?.focus || "自由生长"}。高光：${report.highlight} 遗憾：${report.regret}`;
   return report;
+}
+
+function buildDynamicResult(life, scores, total, matched) {
+  const topScore = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
+  const lowScore = Object.entries(scores).sort((a, b) => a[1] - b[1])[0];
+  const topLabel = scoreLabelName(topScore[0]);
+  const lowLabel = scoreLabelName(lowScore[0]);
+  const goalName = GOALS.find(g => g.id === life.goal)?.name || "自由";
+  const decisiveTags = life.tags.filter(tag => !tag.startsWith("姓名:")).slice(-5);
+  const choiceCount = life.history.filter(item => item.text.includes("你选择了")).length;
+  const positiveCount = life.history.filter(item => item.effects.reduce((sum, effect) => sum + effect.value, 0) > 0).length;
+  const negativeCount = life.history.filter(item => item.effects.reduce((sum, effect) => sum + effect.value, 0) < 0).length;
+  const scoreLabel = total >= 88 ? "很亮眼" : total >= 75 ? "有起伏但值得" : total >= 60 ? "普通但真实" : total >= 45 ? "消耗偏多" : "艰难模式";
+  const fortuneLine = life.fortune
+    ? `开局的「${life.fortune.focus}」运势给了你一个倾向：${life.fortune.strongest}旺让你更容易在${life.fortune.focus}上打开局面，${life.fortune.weakest}弱则让你在人生后半段需要补课。`
+    : "这局没有明显的命理倾向，更多由选择和随机事件塑造。";
+  const tagLine = decisiveTags.length
+    ? `真正改变走向的标签是：${decisiveTags.join("、")}。`
+    : "这局人生没有积累太多鲜明标签，更像是一段缓慢展开的普通生活。";
+  const summary = `${life.personName || "兰姗"}这一生最强的是${topLabel}，最薄的是${lowLabel}。目标选择了「${goalName}」，但结果更像是被「${topLabel}」牵着走。${tagLine}`;
+  const destinyComment = `${matched.summary} ${fortuneLine} 全局看，你做过 ${choiceCount} 次关键选择，其中 ${positiveCount} 次带来明显增益，${negativeCount} 次留下代价。`;
+  const turningPoints = buildTurningPoints(life);
+  const futureAdvice = buildFutureAdvice(life, lowScore[0], topScore[0], total);
+  const scoreInsights = [
+    `最高维度：${topLabel} ${topScore[1]} 分，说明这局人生在这方面留下了最清晰的收益。`,
+    `最低维度：${lowLabel} ${lowScore[1]} 分，这是下一次重开最值得主动修正的方向。`,
+    `目标匹配：${goalName}目标带来的修正已计入总评，分数不是单纯财富或名望排名。`
+  ];
+  return { summary, scoreLabel, destinyComment, turningPoints, futureAdvice, scoreInsights };
+}
+
+function buildTurningPoints(life) {
+  const choices = life.history.filter(item => item.text.includes("你选择了"));
+  const ranked = choices
+    .map(item => ({
+      ...item,
+      weight: Math.abs(item.effects.reduce((sum, effect) => sum + effect.value, 0)) + item.tags.length
+    }))
+    .sort((a, b) => b.weight - a.weight)
+    .slice(0, 4);
+  const source = ranked.length ? ranked : life.history.slice(0, 4);
+  return source.map(item => ({
+    age: item.age,
+    title: `${item.age} 岁的转折`,
+    text: item.text,
+    result: item.effects.length ? item.effects.map(effect => `${labelAttr(effect.attr)}${effect.value > 0 ? "+" : ""}${effect.value}`).join("，") : "没有明显数值变化",
+    tags: item.tags || []
+  }));
+}
+
+function buildFutureAdvice(life, weakKey, strongKey, total) {
+  const weak = scoreLabelName(weakKey);
+  const strong = scoreLabelName(strongKey);
+  const advice = [];
+  advice.push(total >= 75 ? `下一局可以尝试反向人生：少依赖${strong}，看看补足${weak}后会不会出现完全不同的结局。` : `下一局建议先保住${weak}，不要太早用健康、关系或心态去换短期收益。`);
+  if (hasTag(life, "高风险偏好") || hasTag(life, "创业者")) advice.push("你适合走高波动路线，但要给失败留缓冲，不要把所有筹码一次压完。");
+  if (hasTag(life, "家庭优先") || hasTag(life, "照顾者")) advice.push("家庭线能带来稳定感，但别把自己的需求长期静音。");
+  if (hasTag(life, "被看见") || hasTag(life, "社区明星")) advice.push("表达和曝光会放大机会，也会放大消耗，下一局可以试着给自己设置边界。");
+  if (life.fortune) advice.push(`按本局运势，${life.fortune.focus}仍是优势位；若想改变命运感，可以刻意选择补${life.fortune.weakest}的选项。`);
+  return advice.slice(0, 4);
+}
+
+function scoreLabelName(key) {
+  return {
+    happiness: "幸福",
+    wealth: "财富",
+    relation: "关系",
+    health: "健康"
+  }[key] || key;
 }
 
 function goalAdjustment(goal, scores) {
@@ -797,11 +919,11 @@ function renderEnding() {
     <section class="report-card">
       <p class="eyebrow">ENDING REPORT</p>
       <h1 class="report-title">${escapeHTML(report.personName || "兰姗")} · ${escapeHTML(report.title)}</h1>
-      <p class="subtitle">${escapeHTML(report.summary)}</p>
+      <p class="subtitle">${escapeHTML(report.dynamicSummary || report.summary)}</p>
       <div class="grid cols-2" style="margin-top:24px">
         <div>
           <div class="score">${report.score}</div>
-          <p class="muted">人生总评 · 结束于 ${report.age} 岁 · 目标：${escapeHTML(report.goal)}</p>
+          <p class="muted">人生总评 · ${escapeHTML(report.scoreLabel || "普通但真实")} · 结束于 ${report.age} 岁 · 目标：${escapeHTML(report.goal)}</p>
           <div class="tag-row">${report.tags.map(tag => `<span class="tag primary">${escapeHTML(tag)}</span>`).join("")}</div>
         </div>
         <div class="stat-grid">
@@ -814,11 +936,41 @@ function renderEnding() {
     </section>
     <div class="layout">
       <main class="panel">
-        <h2>人生回放</h2>
+        <h2>动态结果</h2>
+        <div class="result-narrative">
+          <p>${escapeHTML(report.destinyComment || report.summary)}</p>
+        </div>
         <div class="grid cols-2" style="margin-top:16px">
           <div class="card"><h3>高光时刻</h3><p>${escapeHTML(report.highlight)}</p></div>
           <div class="card"><h3>遗憾时刻</h3><p>${escapeHTML(report.regret)}</p></div>
         </div>
+        ${report.turningPoints?.length ? `
+          <h3 style="margin-top:24px">关键转折</h3>
+          <div class="turning-list">
+            ${report.turningPoints.map(point => `
+              <article class="turning-card">
+                <strong>${escapeHTML(point.title)}</strong>
+                <p>${escapeHTML(point.text)}</p>
+                <div class="tag-row">
+                  <span class="tag primary">${escapeHTML(point.result)}</span>
+                  ${(point.tags || []).map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join("")}
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        ` : ""}
+        ${report.scoreInsights?.length ? `
+          <h3 style="margin-top:24px">分数解读</h3>
+          <div class="grid cols-3" style="margin-top:12px">
+            ${report.scoreInsights.map(text => `<div class="card"><p>${escapeHTML(text)}</p></div>`).join("")}
+          </div>
+        ` : ""}
+        ${report.futureAdvice?.length ? `
+          <h3 style="margin-top:24px">下一局建议</h3>
+          <div class="advice-list">
+            ${report.futureAdvice.map(text => `<p>${escapeHTML(text)}</p>`).join("")}
+          </div>
+        ` : ""}
         ${fortune ? `
           <div class="fortune-card compact">
             <div class="section-title">
