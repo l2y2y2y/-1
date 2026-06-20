@@ -32,6 +32,27 @@ const GOALS = [
   { id: "longevity", name: "长寿", desc: "希望活得久，也活得稳。" }
 ];
 
+const HOUR_BRANCHES = [
+  { id: "zi", name: "子时", range: "23:00-00:59", branch: "子", element: "水" },
+  { id: "chou", name: "丑时", range: "01:00-02:59", branch: "丑", element: "土" },
+  { id: "yin", name: "寅时", range: "03:00-04:59", branch: "寅", element: "木" },
+  { id: "mao", name: "卯时", range: "05:00-06:59", branch: "卯", element: "木" },
+  { id: "chen", name: "辰时", range: "07:00-08:59", branch: "辰", element: "土" },
+  { id: "si", name: "巳时", range: "09:00-10:59", branch: "巳", element: "火" },
+  { id: "wu", name: "午时", range: "11:00-12:59", branch: "午", element: "火" },
+  { id: "wei", name: "未时", range: "13:00-14:59", branch: "未", element: "土" },
+  { id: "shen", name: "申时", range: "15:00-16:59", branch: "申", element: "金" },
+  { id: "you", name: "酉时", range: "17:00-18:59", branch: "酉", element: "金" },
+  { id: "xu", name: "戌时", range: "19:00-20:59", branch: "戌", element: "土" },
+  { id: "hai", name: "亥时", range: "21:00-22:59", branch: "亥", element: "水" }
+];
+
+const STEMS = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+const BRANCHES = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+const STEM_ELEMENTS = { 甲: "木", 乙: "木", 丙: "火", 丁: "火", 戊: "土", 己: "土", 庚: "金", 辛: "金", 壬: "水", 癸: "水" };
+const BRANCH_ELEMENTS = { 子: "水", 丑: "土", 寅: "木", 卯: "木", 辰: "土", 巳: "火", 午: "火", 未: "土", 申: "金", 酉: "金", 戌: "土", 亥: "水" };
+const ELEMENT_ATTR = { 木: "intelligence", 火: "charm", 土: "family", 金: "luck", 水: "mindset" };
+
 const BACKGROUNDS = [
   "县城普通家庭 / 独生子女 / 父母务实",
   "一线城市双职工家庭 / 家教严格 / 资源较好",
@@ -244,9 +265,74 @@ function getStage(age) {
   return STAGES.find(stage => age >= stage.min && age <= stage.max) || STAGES[STAGES.length - 1];
 }
 
+function analyzeFortune(nameInput, birthDate, birthHourId) {
+  const name = (nameInput || "兰姗").trim() || "兰姗";
+  const date = new Date(`${birthDate || "1998-08-08"}T12:00:00`);
+  const year = Number.isNaN(date.getFullYear()) ? 1998 : date.getFullYear();
+  const month = Number.isNaN(date.getMonth()) ? 8 : date.getMonth() + 1;
+  const day = Number.isNaN(date.getDate()) ? 8 : date.getDate();
+  const hour = HOUR_BRANCHES.find(item => item.id === birthHourId) || HOUR_BRANCHES[4];
+
+  const yearStem = STEMS[(year - 4) % 10];
+  const yearBranch = BRANCHES[(year - 4) % 12];
+  const monthStem = STEMS[(year + month) % 10];
+  const monthBranch = BRANCHES[(month + 1) % 12];
+  const dayStem = STEMS[(year + month + day) % 10];
+  const dayBranch = BRANCHES[(year + day) % 12];
+  const pillars = [`${yearStem}${yearBranch}`, `${monthStem}${monthBranch}`, `${dayStem}${dayBranch}`, `?${hour.branch}`];
+
+  const elementScores = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
+  [yearStem, monthStem, dayStem].forEach(stem => elementScores[STEM_ELEMENTS[stem]] += 2);
+  [yearBranch, monthBranch, dayBranch, hour.branch].forEach(branch => elementScores[BRANCH_ELEMENTS[branch] || hour.element] += 1);
+  elementScores[hour.element] += 1;
+
+  [...name].forEach((char, index) => {
+    const element = ["木", "火", "土", "金", "水"][(char.charCodeAt(0) + index) % 5];
+    elementScores[element] += 1;
+  });
+
+  const sorted = Object.entries(elementScores).sort((a, b) => b[1] - a[1]);
+  const strongest = sorted[0][0];
+  const weakest = sorted[sorted.length - 1][0];
+  const nameScore = [...name].reduce((sum, char) => sum + char.charCodeAt(0), 0) % 100;
+  const fortuneScore = clamp(Math.round((nameScore + sorted[0][1] * 9 + sorted[1][1] * 5) / 1.8), 40, 96);
+  const focusMap = { 木: "学习成长", 火: "人缘表达", 土: "家庭稳定", 金: "机遇财运", 水: "心态流动" };
+  const adviceMap = {
+    木: "多给自己留出学习和试错空间，越到后面越能靠积累翻盘。",
+    火: "适合主动表达和被看见，但要避免一时冲动消耗关系。",
+    土: "适合走稳扎稳打路线，家庭和长期承诺会成为重要支点。",
+    金: "机会常在规则、资源和关键判断里出现，别只靠运气硬冲。",
+    水: "直觉和适应力较强，适合在变化里找到自己的节奏。"
+  };
+  const balanceText = `五行偏${strongest}，${weakest}气较弱。${adviceMap[strongest]}可刻意补一点${focusMap[weakest]}，人生会更稳。`;
+  const effects = [
+    { attr: ELEMENT_ATTR[strongest], value: 1 },
+    { attr: "luck", value: fortuneScore >= 76 ? 1 : 0 }
+  ].filter(effect => effect.value !== 0);
+
+  return {
+    name,
+    birthDate: birthDate || "1998-08-08",
+    birthHour: hour,
+    pillars,
+    elementScores,
+    strongest,
+    weakest,
+    fortuneScore,
+    focus: focusMap[strongest],
+    summary: `${name}的名字气质偏柔中带韧，简化八字显示${balanceText}`,
+    advice: `本局适合关注「${focusMap[strongest]}」。遇到关键选择时，优先选择能长期积累、少透支心力的路线。`,
+    effects,
+    tags: [`姓名:${name}`, `${focusMap[strongest]}运势`, `${strongest}旺`]
+  };
+}
+
 function createSetup() {
   const attrs = { health: 3, intelligence: 3, charm: 3, family: 3, luck: 3, mindset: 3 };
   return {
+    personName: "兰姗",
+    birthDate: "1998-08-08",
+    birthHour: "chen",
     background: randomItem(BACKGROUNDS),
     talentOptions: sample(TALENTS, 6),
     selectedTalentIds: [],
@@ -265,8 +351,12 @@ function startSetup() {
 function startLife() {
   const setup = appState.setup;
   const selectedTalents = setup.talentOptions.filter(t => setup.selectedTalentIds.includes(t.id));
+  const fortune = analyzeFortune(setup.personName, setup.birthDate, setup.birthHour);
   const attrs = { ...setup.attrs };
-  const tags = [];
+  const tags = [...fortune.tags];
+  fortune.effects.forEach(effect => {
+    attrs[effect.attr] = clamp(attrs[effect.attr] + effect.value);
+  });
   selectedTalents.forEach(talent => {
     Object.entries(talent.effects).forEach(([key, value]) => {
       attrs[key] = clamp(attrs[key] + value);
@@ -277,6 +367,10 @@ function startLife() {
     status: "running",
     age: 0,
     stage: getStage(0).id,
+    personName: setup.personName?.trim() || "兰姗",
+    birthDate: setup.birthDate,
+    birthHour: setup.birthHour,
+    fortune,
     background: setup.background,
     goal: setup.goal,
     attributes: attrs,
@@ -415,6 +509,7 @@ function buildEnding(life, reason) {
   const report = {
     id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
     endingId: matched.id,
+    personName: life.personName || "兰姗",
     title: matched.title,
     summary: matched.summary,
     age: life.age,
@@ -423,13 +518,14 @@ function buildEnding(life, reason) {
     tags: life.tags.slice(-8),
     goal: GOALS.find(g => g.id === life.goal)?.name || "自由",
     background: life.background,
+    fortune: life.fortune,
     talents: life.selectedTalents.map(t => t.name),
     highlight,
     regret,
     history: life.history.slice(0, 30),
     createdAt: new Date().toLocaleString("zh-CN")
   };
-  report.shareText = `我在《重活一遍》里活出了「${report.title}」：${report.score} 分，结束于 ${report.age} 岁。高光：${report.highlight} 遗憾：${report.regret}`;
+  report.shareText = `${report.personName}在《重活一遍》里活出了「${report.title}」：${report.score} 分，结束于 ${report.age} 岁。开局运势：${report.fortune?.focus || "自由生长"}。高光：${report.highlight} 遗憾：${report.regret}`;
   return report;
 }
 
@@ -554,6 +650,7 @@ function renderSetup() {
   const setup = appState.setup;
   const used = Object.values(setup.attrs).reduce((a, b) => a + b, 0);
   const remaining = 20 - used;
+  const setupFortune = analyzeFortune(setup.personName, setup.birthDate, setup.birthHour);
   return `
     <section class="panel">
       <div class="section-title">
@@ -575,6 +672,38 @@ function renderSetup() {
             ${GOALS.map(goal => `<option value="${goal.id}" ${setup.goal === goal.id ? "selected" : ""}>${goal.name} · ${goal.desc}</option>`).join("")}
           </select>
         </div>
+      </div>
+      <div class="fortune-card">
+        <div class="section-title">
+          <div>
+            <h3>姓名与八字运势</h3>
+            <p>娱乐向判断：用于生成开局标签和轻微属性加成，不代表真实命理结论。</p>
+          </div>
+          <div class="fortune-score">${setupFortune.fortuneScore}</div>
+        </div>
+        <div class="form-grid">
+          <label>
+            <span>名字</span>
+            <input id="personNameInput" class="text-input" maxlength="8" value="${escapeHTML(setup.personName || "兰姗")}" placeholder="兰姗">
+          </label>
+          <label>
+            <span>出生日期</span>
+            <input id="birthDateInput" class="text-input" type="date" value="${escapeHTML(setup.birthDate || "1998-08-08")}">
+          </label>
+          <label>
+            <span>出生时辰</span>
+            <select id="birthHourSelect" class="text-input">
+              ${HOUR_BRANCHES.map(hour => `<option value="${hour.id}" ${setup.birthHour === hour.id ? "selected" : ""}>${hour.name} · ${hour.range}</option>`).join("")}
+            </select>
+          </label>
+        </div>
+        <div class="tag-row">
+          ${setupFortune.pillars.map(item => `<span class="tag primary">${escapeHTML(item)}</span>`).join("")}
+          <span class="tag primary">${escapeHTML(setupFortune.focus)}</span>
+          <span class="tag">${escapeHTML(setupFortune.strongest)}旺 / ${escapeHTML(setupFortune.weakest)}弱</span>
+        </div>
+        <p class="muted" style="margin-top:12px">${escapeHTML(setupFortune.summary)}</p>
+        <p class="muted" style="margin-top:6px">${escapeHTML(setupFortune.advice)}</p>
       </div>
     </section>
     <div class="layout">
@@ -663,10 +792,11 @@ function renderLife() {
 
 function renderEnding() {
   const report = appState.life?.ending || readJSON(STORAGE_KEYS.last);
+  const fortune = report.fortune;
   return `
     <section class="report-card">
       <p class="eyebrow">ENDING REPORT</p>
-      <h1 class="report-title">${escapeHTML(report.title)}</h1>
+      <h1 class="report-title">${escapeHTML(report.personName || "兰姗")} · ${escapeHTML(report.title)}</h1>
       <p class="subtitle">${escapeHTML(report.summary)}</p>
       <div class="grid cols-2" style="margin-top:24px">
         <div>
@@ -689,6 +819,19 @@ function renderEnding() {
           <div class="card"><h3>高光时刻</h3><p>${escapeHTML(report.highlight)}</p></div>
           <div class="card"><h3>遗憾时刻</h3><p>${escapeHTML(report.regret)}</p></div>
         </div>
+        ${fortune ? `
+          <div class="fortune-card compact">
+            <div class="section-title">
+              <div>
+                <h3>姓名八字运势回看</h3>
+                <p>开局判定：${escapeHTML(fortune.focus)} · ${escapeHTML(fortune.strongest)}旺 / ${escapeHTML(fortune.weakest)}弱</p>
+              </div>
+              <div class="fortune-score">${fortune.fortuneScore}</div>
+            </div>
+            <div class="tag-row">${fortune.pillars.map(item => `<span class="tag primary">${escapeHTML(item)}</span>`).join("")}</div>
+            <p class="muted" style="margin-top:10px">${escapeHTML(fortune.advice)}</p>
+          </div>
+        ` : ""}
         <h3 style="margin-top:24px">分享文案</h3>
         <textarea class="share-box" readonly>${escapeHTML(report.shareText)}</textarea>
         <div class="actions">
@@ -699,6 +842,7 @@ function renderEnding() {
       </main>
       <aside class="panel">
         <h3>本局开局</h3>
+        <p class="muted" style="margin-top:10px">名字：${escapeHTML(report.personName || "兰姗")}</p>
         <p class="muted" style="margin-top:10px">${escapeHTML(report.background)}</p>
         <div class="tag-row">${report.talents.map(talent => `<span class="tag">${escapeHTML(talent)}</span>`).join("")}</div>
         <button class="button secondary" style="margin-top:18px;width:100%" data-action="show-collection">查看收藏</button>
@@ -755,6 +899,30 @@ function bindEvents() {
     goalSelect.addEventListener("change", event => {
       appState.setup.goal = event.target.value;
       saveCurrent();
+    });
+  }
+  const personNameInput = document.getElementById("personNameInput");
+  if (personNameInput) {
+    personNameInput.addEventListener("input", event => {
+      appState.setup.personName = event.target.value || "兰姗";
+      saveCurrent();
+    });
+    personNameInput.addEventListener("blur", () => render());
+  }
+  const birthDateInput = document.getElementById("birthDateInput");
+  if (birthDateInput) {
+    birthDateInput.addEventListener("change", event => {
+      appState.setup.birthDate = event.target.value || "1998-08-08";
+      saveCurrent();
+      render();
+    });
+  }
+  const birthHourSelect = document.getElementById("birthHourSelect");
+  if (birthHourSelect) {
+    birthHourSelect.addEventListener("change", event => {
+      appState.setup.birthHour = event.target.value || "chen";
+      saveCurrent();
+      render();
     });
   }
 }
