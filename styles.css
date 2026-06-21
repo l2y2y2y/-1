@@ -1,24 +1,42 @@
 :root {
-  --bg: #140f1f;
-  --bg-deep: #0b0812;
-  --surface: rgba(255, 248, 234, 0.9);
-  --surface-strong: #fff7e8;
-  --surface-dark: rgba(30, 22, 42, 0.72);
-  --ink: #21180f;
-  --ink-on-dark: #fff4df;
-  --muted: #7c6b5a;
-  --muted-on-dark: rgba(255, 244, 223, 0.72);
-  --rule: rgba(255, 220, 165, 0.26);
-  --rule-dark: rgba(255, 255, 255, 0.14);
-  --accent: #ff985f;
-  --accent-2: #51d6bd;
-  --accent-3: #a78bfa;
-  --danger: #ff6b6b;
-  --good: #55d98b;
-  --gold: #ffd166;
-  --shadow: rgba(0, 0, 0, 0.28);
-  --glow: rgba(255, 152, 95, 0.34);
+  /* 浅色主基调：奶油+薰衣草+天蓝 */
+  --bg: #fff5ec;
+  --bg-deep: #ffe8f3;
+  --bg-mid: #e6e0ff;
+  --surface: #ffffff;
+  --surface-strong: #fffaf2;
+  --surface-soft: #fff7ee;
+  --ink: #1d1640;
+  --ink-on-dark: #1d1640;
+  --muted: #7a6c98;
+  --muted-on-dark: #7a6c98;
+  --rule: rgba(29, 22, 64, 0.1);
+  --rule-dark: rgba(29, 22, 64, 0.12);
+
+  /* Pop 主色 */
+  --accent: #ff5e95;        /* 玫粉 */
+  --accent-2: #4ed6a7;      /* 薄荷 */
+  --accent-3: #a06bff;      /* 紫水晶 */
+  --accent-4: #5fbdff;      /* 天蓝 */
+  --accent-5: #ffce4d;      /* 蜂蜜 */
+  --danger: #ff5b6b;
+  --good: #2cc785;
+  --gold: #ffb340;
+  --shadow: rgba(125, 88, 188, 0.18);
+  --glow: rgba(255, 94, 149, 0.28);
+
+  /* 稀有度主色（亮色版，保留强区分） */
+  --r-common: #9bb0c2;
+  --r-common-deep: #c9d4de;
+  --r-rare: #5fbdff;
+  --r-rare-deep: #d8efff;
+  --r-epic: #ff5e95;
+  --r-epic-deep: #ffd5e6;
+  --r-legendary: #ffb340;
+  --r-legendary-deep: #ffe7a8;
+
   --font: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+  --font-title: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
 }
 
 * {
@@ -33,12 +51,13 @@ body {
   min-height: 100%;
   margin: 0;
   font-family: var(--font);
-  color: var(--ink-on-dark);
+  color: var(--ink);
   background:
-    radial-gradient(circle at 12% 0%, rgba(255, 152, 95, 0.34), transparent 34rem),
-    radial-gradient(circle at 86% 6%, rgba(81, 214, 189, 0.25), transparent 30rem),
-    radial-gradient(circle at 50% 65%, rgba(167, 139, 250, 0.18), transparent 32rem),
-    linear-gradient(135deg, var(--bg-deep), var(--bg) 45%, #201734);
+    radial-gradient(circle at 12% -4%, rgba(255, 94, 149, 0.18), transparent 32rem),
+    radial-gradient(circle at 92% 8%, rgba(95, 189, 255, 0.18), transparent 30rem),
+    radial-gradient(circle at 80% 96%, rgba(255, 206, 77, 0.18), transparent 30rem),
+    radial-gradient(circle at 8% 92%, rgba(160, 107, 255, 0.16), transparent 28rem),
+    linear-gradient(165deg, #fff7ec 0%, #ffe7f2 50%, #e9e2ff 100%);
   overflow-x: hidden;
 }
 
@@ -48,21 +67,22 @@ body::before {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 42px 42px;
-  mask-image: radial-gradient(circle at center, black, transparent 72%);
+    radial-gradient(rgba(160, 107, 255, 0.18) 1.2px, transparent 1.4px);
+  background-size: 22px 22px;
+  background-position: 0 0;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+  opacity: 0.6;
 }
 
 body::after {
   content: "";
   position: fixed;
-  inset: auto -12vw -22vh auto;
+  inset: auto -10vw -22vh auto;
   width: 46vw;
   height: 46vw;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(255, 209, 102, 0.15), transparent 64%);
+  background: radial-gradient(circle, rgba(255, 179, 64, 0.22), transparent 64%);
   filter: blur(8px);
 }
 
@@ -89,15 +109,16 @@ button {
   position: relative;
   overflow: hidden;
   min-height: 460px;
-  border: 1px solid var(--rule-dark);
+  border: 2px solid #1d1640;
   border-radius: 36px;
   background:
-    linear-gradient(135deg, rgba(255, 248, 234, 0.12), rgba(255, 255, 255, 0.035)),
-    radial-gradient(circle at 86% 24%, rgba(255, 209, 102, 0.2), transparent 18rem),
-    rgba(24, 16, 34, 0.72);
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+    radial-gradient(circle at 88% 22%, rgba(255, 206, 77, 0.55), transparent 16rem),
+    radial-gradient(circle at 14% 86%, rgba(95, 189, 255, 0.42), transparent 16rem),
+    radial-gradient(circle at 50% 50%, rgba(255, 94, 149, 0.28), transparent 22rem),
+    #fff8ef;
+  box-shadow: 8px 10px 0 #1d1640, 0 24px 60px rgba(125, 88, 188, 0.18);
   padding: 44px;
-  backdrop-filter: blur(18px);
+  color: var(--ink);
 }
 
 .hero::before {
@@ -105,8 +126,7 @@ button {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(115deg, transparent 0 44%, rgba(255, 255, 255, 0.08) 45%, transparent 58%),
-    radial-gradient(circle at 82% 48%, rgba(81, 214, 189, 0.22), transparent 16rem);
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.6), transparent 14rem);
   pointer-events: none;
 }
 
@@ -120,15 +140,15 @@ button {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  border: 1px solid rgba(255, 244, 223, 0.22);
+  border: 2px solid #1d1640;
   background:
-    conic-gradient(from 210deg, rgba(255, 152, 95, 0.45), rgba(81, 214, 189, 0.42), rgba(167, 139, 250, 0.42), rgba(255, 152, 95, 0.45));
-  color: rgba(255, 244, 223, 0.86);
+    conic-gradient(from 210deg, #ff5e95, #ffce4d, #4ed6a7, #5fbdff, #a06bff, #ff5e95);
+  color: #1d1640;
   font-size: clamp(1.8rem, 5vw, 3.8rem);
   font-weight: 900;
   letter-spacing: -0.08em;
-  box-shadow: 0 0 80px rgba(255, 152, 95, 0.25);
-  opacity: 0.86;
+  box-shadow: 4px 6px 0 #1d1640;
+  opacity: 0.96;
 }
 
 .hero > * {
@@ -141,14 +161,15 @@ button {
   align-items: center;
   gap: 8px;
   margin: 0 0 14px;
-  border: 1px solid rgba(255, 152, 95, 0.32);
+  border: 2px solid #1d1640;
   border-radius: 999px;
-  background: rgba(255, 152, 95, 0.11);
-  color: #ffd7bc;
+  background: #fff;
+  color: #1d1640;
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.13em;
-  padding: 7px 11px;
+  padding: 7px 12px;
+  box-shadow: 3px 3px 0 #1d1640;
 }
 
 .eyebrow::before {
@@ -156,8 +177,8 @@ button {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--accent-2);
-  box-shadow: 0 0 18px var(--accent-2);
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 94, 149, 0.22);
 }
 
 h1,
@@ -171,8 +192,8 @@ h1 {
   max-width: 730px;
   font-size: clamp(3.2rem, 10vw, 7.8rem);
   letter-spacing: -0.1em;
-  color: var(--ink-on-dark);
-  text-shadow: 0 18px 42px rgba(0, 0, 0, 0.3);
+  color: #1d1640;
+  text-shadow: 4px 4px 0 rgba(255, 94, 149, 0.32);
 }
 
 h2 {
@@ -191,7 +212,7 @@ p {
 
 .subtitle {
   max-width: 700px;
-  color: var(--muted-on-dark);
+  color: #4a3f6e;
   margin-top: 18px;
   font-size: 1.08rem;
   line-height: 1.85;
@@ -208,14 +229,14 @@ p {
 .button {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 152, 95, 0.62);
+  border: 2px solid #1d1640;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--accent), #ff6f61);
-  color: #1e120c;
-  padding: 12px 20px;
+  background: linear-gradient(135deg, #ff5e95, #ffce4d);
+  color: #1d1640;
+  padding: 12px 22px;
   font-weight: 900;
-  box-shadow: 0 14px 30px rgba(255, 112, 97, 0.24), 0 0 0 1px rgba(255, 255, 255, 0.12) inset;
-  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+  box-shadow: 4px 4px 0 #1d1640;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.18s ease;
 }
 
 .button::after {
@@ -223,13 +244,18 @@ p {
   position: absolute;
   inset: 0;
   transform: translateX(-120%);
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
   transition: transform 0.45s ease;
 }
 
 .button:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 18px 38px rgba(255, 112, 97, 0.32);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #1d1640;
+}
+
+.button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #1d1640;
 }
 
 .button:hover::after {
@@ -237,32 +263,32 @@ p {
 }
 
 .button.secondary {
-  color: var(--ink-on-dark);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 244, 223, 0.2);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  color: #1d1640;
+  background: #fff;
+  border-color: #1d1640;
+  box-shadow: 4px 4px 0 #1d1640;
 }
 
 .panel .button.secondary,
 .event-card .button.secondary,
 .card .button.secondary,
 .report-card + .layout .button.secondary {
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.52);
-  border-color: rgba(33, 24, 15, 0.12);
+  color: #1d1640;
+  background: #fff;
+  border-color: #1d1640;
 }
 
 .button.ghost {
-  color: #ffd7bc;
+  color: #1d1640;
   background: transparent;
-  border-color: rgba(255, 152, 95, 0.3);
+  border-color: rgba(29, 22, 64, 0.5);
   box-shadow: none;
 }
 
 .panel .button.ghost,
 .event-card .button.ghost,
 .card .button.ghost {
-  color: #8c3f25;
+  color: #1d1640;
 }
 
 .button:disabled {
@@ -270,6 +296,7 @@ p {
   opacity: 0.55;
   transform: none;
   filter: grayscale(0.4);
+  box-shadow: 2px 2px 0 #1d1640;
 }
 
 .layout {
@@ -284,12 +311,32 @@ p {
 .card,
 .event-card,
 .report-card {
-  border: 1px solid rgba(255, 244, 223, 0.18);
+  border: 2px solid #1d1640;
   border-radius: 28px;
-  background:
-    linear-gradient(145deg, rgba(255, 250, 241, 0.96), rgba(255, 238, 212, 0.88));
+  background: #ffffff;
   color: var(--ink);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: 6px 6px 0 #1d1640;
+}
+
+/* 不同面板按功能上不同 pop 色，避免“一个色” */
+.panel.panel-attributes {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(78, 214, 167, 0.32), transparent 14rem),
+    #f6fffb;
+  border-color: #1d1640;
+}
+.panel.panel-history {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(160, 107, 255, 0.28), transparent 14rem),
+    #faf6ff;
+  border-color: #1d1640;
+}
+.panel.panel-archetype {
+  background:
+    radial-gradient(circle at 100% 100%, rgba(255, 206, 77, 0.42), transparent 14rem),
+    radial-gradient(circle at 0% 0%, rgba(255, 94, 149, 0.22), transparent 14rem),
+    #fffaee;
+  border-color: #1d1640;
 }
 
 .panel {
@@ -340,7 +387,7 @@ p {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(circle at 20% 0%, rgba(255, 152, 95, 0.12), transparent 45%);
+  background: radial-gradient(circle at 20% 0%, rgba(255, 94, 149, 0.08), transparent 45%);
 }
 
 .card > * {
@@ -354,16 +401,16 @@ p {
 
 .card.selectable:hover,
 .collection-list .card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 152, 95, 0.55);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);
+  transform: translate(-3px, -3px);
+  border-color: #1d1640;
+  box-shadow: 8px 8px 0 #1d1640;
 }
 
 .card.selected {
-  border-color: rgba(255, 152, 95, 0.9);
+  border-color: #1d1640;
   background:
-    linear-gradient(145deg, rgba(255, 230, 199, 0.96), rgba(255, 248, 234, 0.94));
-  box-shadow: 0 0 0 2px rgba(255, 152, 95, 0.12), 0 18px 42px rgba(255, 152, 95, 0.16);
+    linear-gradient(150deg, #fff3d6, #ffe5f0);
+  box-shadow: 6px 6px 0 var(--accent), 8px 8px 0 #1d1640;
 }
 
 .card .meta,
@@ -382,19 +429,20 @@ p {
 .tag {
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(33, 24, 15, 0.1);
+  border: 1.5px solid #1d1640;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.48);
-  padding: 4px 9px;
-  color: var(--muted);
+  background: #fff;
+  padding: 4px 10px;
+  color: #1d1640;
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 #1d1640;
 }
 
 .tag.primary {
-  color: #7b351e;
-  border-color: rgba(255, 152, 95, 0.42);
-  background: rgba(255, 152, 95, 0.16);
+  color: #1d1640;
+  border-color: #1d1640;
+  background: linear-gradient(135deg, #ffce4d, #ff5e95);
 }
 
 .attribute-list {
@@ -413,8 +461,10 @@ p {
   text-align: center;
   border-radius: 12px;
   padding: 5px 0;
-  background: rgba(255, 152, 95, 0.14);
-  color: #7b351e;
+  background: linear-gradient(135deg, #4ed6a7, #5fbdff);
+  color: #1d1640;
+  border: 1.5px solid #1d1640;
+  box-shadow: 2px 2px 0 #1d1640;
 }
 
 input[type="range"] {
@@ -429,24 +479,25 @@ input[type="range"] {
 }
 
 .stat {
-  border: 1px solid rgba(33, 24, 15, 0.09);
+  border: 1.5px solid #1d1640;
   border-radius: 18px;
   padding: 12px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.58), rgba(255, 237, 211, 0.72));
+  background: #fff;
+  box-shadow: 3px 3px 0 #1d1640;
 }
 
 .stat strong {
   display: block;
-  color: #7b351e;
+  color: var(--accent);
   font-size: 1.4rem;
   line-height: 1.1;
 }
 
 .progress {
-  height: 8px;
+  height: 10px;
   border-radius: 999px;
-  background: rgba(33, 24, 15, 0.09);
+  background: rgba(29, 22, 64, 0.08);
+  border: 1.5px solid #1d1640;
   overflow: hidden;
   margin-top: 8px;
 }
@@ -455,8 +506,7 @@ input[type="range"] {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
-  box-shadow: 0 0 16px rgba(255, 152, 95, 0.36);
+  background: linear-gradient(90deg, #ff5e95, #ffce4d, #4ed6a7);
 }
 
 .event-card {
@@ -465,8 +515,10 @@ input[type="range"] {
   padding: 30px;
   min-height: 460px;
   background:
-    radial-gradient(circle at 12% 0%, rgba(255, 152, 95, 0.22), transparent 18rem),
-    linear-gradient(145deg, rgba(255, 250, 241, 0.97), rgba(255, 237, 213, 0.92));
+    radial-gradient(circle at 12% 0%, rgba(255, 94, 149, 0.18), transparent 18rem),
+    radial-gradient(circle at 86% 92%, rgba(95, 189, 255, 0.18), transparent 16rem),
+    #fffbf3;
+  border-color: #1d1640;
 }
 
 .event-card::before {
@@ -477,7 +529,8 @@ input[type="range"] {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: conic-gradient(from 120deg, rgba(255, 152, 95, 0.25), rgba(81, 214, 189, 0.22), rgba(167, 139, 250, 0.24), rgba(255, 152, 95, 0.25));
+  background: conic-gradient(from 120deg, #ff5e95, #4ed6a7, #a06bff, #ffce4d, #ff5e95);
+  opacity: 0.5;
 }
 
 .event-card > * {
@@ -496,18 +549,22 @@ input[type="range"] {
   font-size: clamp(3.2rem, 8vw, 5.6rem);
   font-weight: 950;
   letter-spacing: -0.1em;
-  color: #7b351e;
+  color: var(--accent);
+  text-shadow: 4px 4px 0 #1d1640;
 }
 
 .event-text {
   position: relative;
-  border-left: 5px solid rgba(255, 152, 95, 0.55);
+  border: 2px solid #1d1640;
+  border-left: 6px solid var(--accent);
   padding: 18px 20px;
   border-radius: 0 22px 22px 0;
-  background: rgba(255, 255, 255, 0.45);
+  background: #ffffff;
+  color: var(--ink);
   font-size: clamp(1.18rem, 3vw, 1.55rem);
   line-height: 1.9;
   margin: 20px 0;
+  box-shadow: 4px 4px 0 #1d1640;
 }
 
 .choice-list {
@@ -520,14 +577,14 @@ input[type="range"] {
   position: relative;
   width: 100%;
   overflow: hidden;
-  border: 1px solid rgba(33, 24, 15, 0.1);
+  border: 2px solid #1d1640;
   border-radius: 20px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.76), rgba(255, 238, 213, 0.82));
+  background: #ffffff;
   color: var(--ink);
   padding: 17px 18px;
   text-align: left;
-  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+  box-shadow: 4px 4px 0 #1d1640;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.18s ease;
 }
 
 .choice::after {
@@ -536,23 +593,31 @@ input[type="range"] {
   right: 14px;
   top: 14px;
   border-radius: 999px;
-  background: rgba(81, 214, 189, 0.14);
-  color: #1d665a;
+  background: linear-gradient(135deg, #4ed6a7, #5fbdff);
+  color: #1d1640;
+  border: 1.5px solid #1d1640;
   font-size: 0.76rem;
   font-weight: 900;
-  padding: 4px 8px;
+  padding: 4px 10px;
+  box-shadow: 2px 2px 0 #1d1640;
 }
 
 .choice:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 152, 95, 0.75);
-  box-shadow: 0 16px 30px rgba(170, 90, 53, 0.16);
+  transform: translate(-2px, -2px);
+  background: #fff8ee;
+  box-shadow: 6px 6px 0 #1d1640;
+}
+
+.choice:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #1d1640;
 }
 
 .choice strong {
   display: block;
   margin-bottom: 5px;
-  padding-right: 54px;
+  padding-right: 64px;
+  color: #1d1640;
 }
 
 .history {
@@ -563,7 +628,7 @@ input[type="range"] {
 
 .history-item {
   position: relative;
-  border-left: 3px solid rgba(255, 152, 95, 0.42);
+  border-left: 3px solid var(--accent-3);
   padding: 0 0 16px 14px;
   margin-bottom: 14px;
 }
@@ -573,27 +638,28 @@ input[type="range"] {
   position: absolute;
   left: -7px;
   top: 3px;
-  width: 11px;
-  height: 11px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 5px rgba(255, 152, 95, 0.13);
+  background: var(--accent-3);
+  border: 2px solid #1d1640;
 }
 
 .history-item strong {
-  color: #7b351e;
+  color: #1d1640;
 }
 
 .report-card {
   position: relative;
   overflow: hidden;
   padding: 34px;
-  color: var(--ink-on-dark);
+  color: var(--ink);
   background:
-    radial-gradient(circle at 78% 18%, rgba(255, 209, 102, 0.25), transparent 18rem),
-    radial-gradient(circle at 8% 0%, rgba(255, 152, 95, 0.25), transparent 20rem),
-    linear-gradient(145deg, rgba(35, 24, 49, 0.96), rgba(20, 15, 31, 0.96));
-  border-color: rgba(255, 244, 223, 0.18);
+    radial-gradient(circle at 78% 18%, rgba(255, 206, 77, 0.4), transparent 18rem),
+    radial-gradient(circle at 8% 0%, rgba(255, 94, 149, 0.3), transparent 20rem),
+    radial-gradient(circle at 100% 100%, rgba(95, 189, 255, 0.28), transparent 20rem),
+    #fffaef;
+  border-color: #1d1640;
 }
 
 .report-card::after {
@@ -604,9 +670,9 @@ input[type="range"] {
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 244, 223, 0.2);
-  background: conic-gradient(from 40deg, rgba(255, 152, 95, 0.32), rgba(81, 214, 189, 0.3), rgba(167, 139, 250, 0.28), rgba(255, 152, 95, 0.32));
-  opacity: 0.75;
+  border: 2px solid #1d1640;
+  background: conic-gradient(from 40deg, #ff5e95, #4ed6a7, #a06bff, #ffce4d, #ff5e95);
+  opacity: 0.85;
 }
 
 .report-card > * {
@@ -616,16 +682,16 @@ input[type="range"] {
 
 .report-card .subtitle,
 .report-card .muted {
-  color: var(--muted-on-dark);
+  color: #4a3f6e;
 }
 
 .score {
   font-size: clamp(4rem, 12vw, 8rem);
   line-height: 0.88;
   font-weight: 950;
-  color: var(--gold);
+  color: var(--accent);
   letter-spacing: -0.1em;
-  text-shadow: 0 0 34px rgba(255, 209, 102, 0.25);
+  text-shadow: 5px 5px 0 #1d1640;
 }
 
 .report-title {
@@ -636,14 +702,15 @@ input[type="range"] {
 }
 
 .result-narrative {
-  border: 1px solid rgba(255, 152, 95, 0.22);
+  border: 2px solid #1d1640;
   border-radius: 22px;
   background:
-    radial-gradient(circle at 0% 0%, rgba(255, 152, 95, 0.14), transparent 14rem),
-    rgba(255, 255, 255, 0.5);
+    radial-gradient(circle at 0% 0%, rgba(255, 206, 77, 0.22), transparent 14rem),
+    #ffffff;
   padding: 18px;
   color: var(--ink);
   font-size: 1.03rem;
+  box-shadow: 4px 4px 0 #1d1640;
 }
 
 .turning-list {
@@ -655,11 +722,12 @@ input[type="range"] {
 .turning-card {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(33, 24, 15, 0.1);
+  border: 2px solid #1d1640;
   border-radius: 20px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.68), rgba(255, 236, 207, 0.72));
+  background: #ffffff;
+  color: var(--ink);
   padding: 16px;
+  box-shadow: 4px 4px 0 #1d1640;
 }
 
 .turning-card::before {
@@ -668,8 +736,8 @@ input[type="range"] {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 5px;
-  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  width: 8px;
+  background: linear-gradient(180deg, #ff5e95, #ffce4d, #4ed6a7);
 }
 
 .turning-card strong,
@@ -680,7 +748,7 @@ input[type="range"] {
 
 .turning-card strong {
   display: block;
-  color: #7b351e;
+  color: #1d1640;
   margin-bottom: 6px;
 }
 
@@ -691,34 +759,39 @@ input[type="range"] {
 }
 
 .advice-list p {
-  border: 1px solid rgba(81, 214, 189, 0.22);
+  border: 2px solid #1d1640;
   border-radius: 18px;
-  background: rgba(81, 214, 189, 0.1);
+  background: linear-gradient(135deg, #d8f7ec, #e6f1ff);
+  color: #1d1640;
   padding: 13px 14px;
+  box-shadow: 3px 3px 0 #1d1640;
 }
 
 .share-box {
   width: 100%;
   min-height: 140px;
-  border: 1px solid rgba(33, 24, 15, 0.1);
+  border: 2px solid #1d1640;
   border-radius: 20px;
-  background: rgba(255, 250, 241, 0.72);
+  background: #fffaf2;
   color: var(--ink);
   padding: 15px;
   resize: vertical;
   margin-top: 12px;
+  box-shadow: 4px 4px 0 #1d1640;
 }
 
 .fortune-card {
   position: relative;
   overflow: hidden;
   margin-top: 18px;
-  border: 1px solid rgba(255, 152, 95, 0.28);
+  border: 2px solid #1d1640;
   border-radius: 24px;
   background:
-    radial-gradient(circle at 92% 8%, rgba(255, 209, 102, 0.22), transparent 12rem),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.62), rgba(255, 226, 197, 0.62));
+    radial-gradient(circle at 92% 8%, rgba(255, 206, 77, 0.36), transparent 12rem),
+    linear-gradient(150deg, #fff7e6, #fff0fa);
+  color: var(--ink);
   padding: 20px;
+  box-shadow: 5px 5px 0 #1d1640;
 }
 
 .fortune-card::before {
@@ -726,7 +799,7 @@ input[type="range"] {
   position: absolute;
   right: 18px;
   bottom: -16px;
-  color: rgba(123, 53, 30, 0.08);
+  color: rgba(29, 22, 64, 0.08);
   font-size: 5rem;
   font-weight: 950;
   letter-spacing: -0.16em;
@@ -770,17 +843,18 @@ input[type="range"] {
 
 .text-input {
   width: 100%;
-  border: 1px solid rgba(33, 24, 15, 0.12);
+  border: 2px solid #1d1640;
   border-radius: 16px;
-  background: rgba(255, 250, 241, 0.76);
+  background: #ffffff;
   color: var(--ink);
   padding: 12px 13px;
   outline: none;
+  box-shadow: 3px 3px 0 #1d1640;
 }
 
 .text-input:focus {
-  border-color: rgba(255, 152, 95, 0.72);
-  box-shadow: 0 0 0 4px rgba(255, 152, 95, 0.12);
+  border-color: var(--accent);
+  box-shadow: 3px 3px 0 var(--accent);
 }
 
 .collection-list {
@@ -789,11 +863,11 @@ input[type="range"] {
 }
 
 .empty {
-  border: 1px dashed rgba(255, 152, 95, 0.36);
+  border: 2px dashed #1d1640;
   border-radius: 20px;
   padding: 24px;
   color: var(--muted);
-  background: rgba(255, 250, 241, 0.48);
+  background: #fffaf2;
 }
 
 .toast {
@@ -803,15 +877,15 @@ input[type="range"] {
   transform: translateX(-50%) translateY(20px);
   opacity: 0;
   pointer-events: none;
-  border: 1px solid rgba(255, 244, 223, 0.18);
+  border: 2px solid #1d1640;
   border-radius: 999px;
-  background: rgba(20, 15, 31, 0.92);
-  color: var(--ink-on-dark);
+  background: #fff;
+  color: #1d1640;
   padding: 11px 17px;
+  font-weight: 800;
   transition: opacity 0.2s ease, transform 0.2s ease;
   z-index: 20;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 0 #1d1640;
 }
 
 .toast.show {
@@ -829,23 +903,22 @@ input[type="range"] {
 
 .life-token {
   min-height: 118px;
-  border: 1px solid rgba(255, 244, 223, 0.15);
+  border: 2px solid #1d1640;
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.08);
+  background: #ffffff;
   padding: 16px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  box-shadow: 4px 4px 0 #1d1640;
 }
 
 .life-token strong {
   display: block;
-  color: #ffe1bd;
+  color: var(--accent);
   font-size: 1.25rem;
   margin-bottom: 8px;
 }
 
 .life-token span {
-  color: var(--muted-on-dark);
+  color: var(--muted);
   font-size: 0.9rem;
   line-height: 1.55;
 }
@@ -907,3 +980,2417 @@ input[type="range"] {
     bottom: -18px;
   }
 }
+
+/* ===== 抽卡稀有度（按品质区分色调） ===== */
+.draw-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.draw-card .rarity-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  padding: 3px 11px;
+  border-radius: 999px;
+  background: #fff;
+  color: #1d1640;
+  border: 1.5px solid #1d1640;
+  box-shadow: 2px 2px 0 #1d1640;
+  text-transform: none;
+  z-index: 2;
+  font-weight: 900;
+}
+
+/* 普通：奶白冷灰 */
+.draw-card.rarity-common {
+  border: 2px solid #1d1640;
+  background:
+    linear-gradient(160deg, #ffffff, #eef0f4 75%);
+  box-shadow: 5px 5px 0 #1d1640;
+}
+.draw-card.rarity-common .rarity-badge {
+  background: linear-gradient(120deg, #c9d4de, #9bb0c2);
+  color: #1d1640;
+}
+.draw-card.rarity-common h3 {
+  color: #1d1640;
+}
+
+/* 稀有：糖果蓝 */
+.draw-card.rarity-rare {
+  border: 2px solid #1d1640;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(95, 189, 255, 0.45), transparent 60%),
+    linear-gradient(160deg, #d8efff, #b0dfff 70%);
+  box-shadow: 5px 5px 0 #1d1640;
+}
+.draw-card.rarity-rare .rarity-badge {
+  background: linear-gradient(120deg, #5fbdff, #b0dfff);
+  color: #0d3a66;
+}
+.draw-card.rarity-rare h3 {
+  color: #0d3a66;
+}
+.draw-card.rarity-rare::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%);
+  pointer-events: none;
+}
+
+/* 史诗：玫粉荧光 */
+.draw-card.rarity-epic {
+  border: 2px solid #1d1640;
+  background:
+    radial-gradient(circle at 84% 16%, rgba(255, 94, 149, 0.42), transparent 60%),
+    radial-gradient(circle at 16% 88%, rgba(160, 107, 255, 0.4), transparent 55%),
+    linear-gradient(155deg, #ffe1ee, #f0dcff);
+  box-shadow: 5px 5px 0 var(--accent), 7px 7px 0 #1d1640;
+}
+.draw-card.rarity-epic .rarity-badge {
+  background: linear-gradient(120deg, #ff5e95, #a06bff);
+  color: #fff;
+  border-color: #1d1640;
+}
+.draw-card.rarity-epic h3 {
+  color: #5a1b48;
+}
+.draw-card.rarity-epic::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(140deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* 传说：日落金 */
+.draw-card.rarity-legendary {
+  border: 2.5px solid #1d1640;
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 206, 77, 0.7), transparent 60%),
+    radial-gradient(circle at 88% 80%, rgba(255, 94, 149, 0.5), transparent 60%),
+    linear-gradient(150deg, #fff0c2, #ffd9b3);
+  box-shadow:
+    6px 6px 0 var(--accent-5),
+    9px 9px 0 #1d1640;
+  animation: legendaryGlow 4.5s ease-in-out infinite;
+}
+.draw-card.rarity-legendary .rarity-badge {
+  background: linear-gradient(120deg, #ffce4d, #ff7a3a);
+  color: #1d1640;
+  border-color: #1d1640;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+.draw-card.rarity-legendary h3 {
+  color: #6a2a05;
+  text-shadow: 2px 2px 0 #ffce4d;
+}
+.draw-card.rarity-legendary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: legendaryShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes legendaryGlow {
+  0%, 100% {
+    box-shadow: 6px 6px 0 var(--accent-5), 9px 9px 0 #1d1640;
+  }
+  50% {
+    box-shadow: 6px 6px 0 #ff7a3a, 9px 9px 0 #1d1640;
+  }
+}
+
+@keyframes legendaryShine {
+  0% { transform: translateX(-120%); }
+  60% { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+
+.draw-card .muted.small {
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.78;
+  margin: 0 0 4px;
+}
+
+.draw-card.selectable {
+  text-align: left;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.draw-card.selectable:hover { transform: translate(-3px, -3px); }
+
+/* 选中态：保留稀有度色相，用粗描边+大投影标记 */
+.draw-card.selectable.selected {
+  border-color: #1d1640;
+  transform: translate(-2px, -2px);
+}
+.draw-card.rarity-common.selected {
+  box-shadow: 6px 6px 0 var(--accent-2), 9px 9px 0 #1d1640;
+}
+.draw-card.rarity-rare.selected {
+  box-shadow: 6px 6px 0 var(--accent-4), 9px 9px 0 #1d1640;
+}
+.draw-card.rarity-epic.selected {
+  box-shadow: 6px 6px 0 var(--accent), 9px 9px 0 #1d1640;
+}
+.draw-card.rarity-legendary.selected {
+  box-shadow: 6px 6px 0 var(--gold), 9px 9px 0 #1d1640;
+}
+
+.button.small {
+  padding: 6px 14px;
+  font-size: 0.85rem;
+}
+
+/* ===== 属性门槛与流派 ===== */
+.choice.locked {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.45);
+  border-style: dashed;
+}
+
+.choice .requirement {
+  display: inline-flex;
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  color: #1d1640;
+  background: linear-gradient(135deg, #ffce4d, #ffe9a8);
+  border: 1.5px solid #1d1640;
+  font-weight: 800;
+}
+
+.choice.locked .requirement {
+  color: #1d1640;
+  background: #ececf2;
+  border-color: rgba(29, 22, 64, 0.4);
+}
+
+.archetype-card {
+  margin: 12px 0 18px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 2px solid #1d1640;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255, 206, 77, 0.32), transparent 58%),
+    linear-gradient(135deg, #fff7e2, #ffe5d0);
+  box-shadow: 5px 5px 0 #1d1640;
+}
+
+.archetype-card span {
+  display: inline-block;
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  color: var(--accent);
+  margin-bottom: 6px;
+  font-weight: 900;
+}
+
+.archetype-card strong {
+  display: block;
+  font-size: 1.45rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.archetype-card p {
+  margin: 0;
+  color: #4a3f6e;
+  line-height: 1.7;
+}
+
+/* ===== 图鉴解锁条 ===== */
+.unlock-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.unlock-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 2px solid #1d1640;
+  min-width: 92px;
+  box-shadow: 3px 3px 0 #1d1640;
+}
+
+.unlock-pill strong {
+  font-size: 1.15rem;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+}
+
+.unlock-pill span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+@media (max-width: 900px) {
+  .unlock-pill { min-width: 0; flex: 1 1 30%; }
+}
+
+/* ===== 新版命运入口 ===== */
+.hero-destiny {
+  min-height: 560px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 380px);
+  gap: 34px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 78% 40%, rgba(255, 206, 77, 0.4), transparent 18rem),
+    radial-gradient(circle at 28% 8%, rgba(160, 107, 255, 0.32), transparent 28rem),
+    radial-gradient(circle at 12% 88%, rgba(95, 189, 255, 0.32), transparent 22rem),
+    #fff8ef;
+}
+
+.hero-destiny::after {
+  display: none;
+}
+
+.hero-copy {
+  max-width: 680px;
+}
+
+.primary-cta {
+  font-size: 1.05rem;
+  padding: 15px 28px;
+}
+
+.omen-line {
+  margin-top: 18px;
+  color: #5a1b48;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+.omen-line.compact {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #fff;
+  border: 2px solid #1d1640;
+  color: #1d1640;
+  box-shadow: 3px 3px 0 #1d1640;
+}
+
+.fate-orb {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 330px;
+}
+
+.orb-ring {
+  position: absolute;
+  width: min(30vw, 330px);
+  height: min(30vw, 330px);
+  min-width: 240px;
+  min-height: 240px;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 0deg, #ff5e95, #ffce4d, #4ed6a7, #5fbdff, #a06bff, #ff5e95);
+  filter: drop-shadow(4px 6px 0 rgba(29, 22, 64, 0.85));
+  animation: fateSpin 18s linear infinite;
+}
+
+.orb-ring::before {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border-radius: inherit;
+  background:
+    repeating-conic-gradient(from 8deg, rgba(29, 22, 64, 0.12) 0 3deg, transparent 3deg 18deg),
+    radial-gradient(circle, #fff8ef 0 48%, transparent 49%);
+}
+
+.orb-core {
+  position: relative;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 28%, #ffffff, transparent 50%),
+    linear-gradient(145deg, #ffce4d, #ff5e95);
+  border: 3px solid #1d1640;
+  color: #1d1640;
+  font-size: 4.6rem;
+  font-weight: 900;
+  box-shadow: 4px 6px 0 #1d1640;
+}
+
+.orb-caption {
+  position: absolute;
+  z-index: 2;
+  bottom: 16px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 2px solid #1d1640;
+  color: #1d1640;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 #1d1640;
+}
+
+@keyframes fateSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== 目标卡与事件反馈 ===== */
+.goal-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.goal-card {
+  min-height: 104px;
+  text-align: left;
+  border: 2px solid #1d1640;
+  border-radius: 18px;
+  padding: 12px;
+  color: var(--ink);
+  background: #ffffff;
+  box-shadow: 4px 4px 0 #1d1640;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.goal-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #1d1640;
+}
+
+.goal-card.selected {
+  background: linear-gradient(160deg, #d8efff, #f0dcff);
+  box-shadow: 5px 5px 0 var(--accent-4), 7px 7px 0 #1d1640;
+}
+
+.goal-card span {
+  display: inline-block;
+  color: var(--accent-4);
+  font-size: 0.78rem;
+  letter-spacing: 1.2px;
+  margin-bottom: 4px;
+  font-weight: 900;
+}
+
+.goal-card strong {
+  display: block;
+  font-size: 1.08rem;
+}
+
+.goal-card em {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.fate-hint {
+  margin: 18px 0;
+  padding: 13px 15px;
+  border-radius: 18px;
+  border: 2px solid #1d1640;
+  background: linear-gradient(135deg, #fff3d6, #ffe0e9);
+  color: #1d1640;
+  line-height: 1.65;
+  box-shadow: 3px 3px 0 #1d1640;
+}
+
+.outcome-reveal {
+  margin-top: 22px;
+  padding: 24px;
+  border-radius: 28px;
+  border: 2px solid #1d1640;
+  background:
+    radial-gradient(circle at 12% 10%, rgba(255, 206, 77, 0.32), transparent 45%),
+    #fffaef;
+  box-shadow: 6px 6px 0 #1d1640;
+}
+
+.outcome-reveal h2 {
+  margin-bottom: 12px;
+}
+
+.judge-line {
+  margin: 16px 0 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  color: #1d1640;
+  background: #fff;
+  border: 2px solid #1d1640;
+  box-shadow: 3px 3px 0 #1d1640;
+}
+
+.verdict-badge {
+  display: inline-flex;
+  margin: 12px 0 14px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  color: #1d1640;
+  background: linear-gradient(120deg, #ff5e95, #ffce4d);
+  font-weight: 900;
+  border: 2px solid #1d1640;
+  box-shadow: 3px 3px 0 #1d1640;
+}
+
+.report-card {
+  background:
+    radial-gradient(circle at 78% 32%, rgba(255, 206, 77, 0.4), transparent 20rem),
+    radial-gradient(circle at 12% 100%, rgba(160, 107, 255, 0.32), transparent 24rem),
+    radial-gradient(circle at 0% 0%, rgba(255, 94, 149, 0.32), transparent 22rem),
+    #fffaef;
+}
+
+@media (max-width: 900px) {
+  .hero-destiny {
+    grid-template-columns: 1fr;
+  }
+
+  .fate-orb {
+    min-height: 260px;
+  }
+
+  .goal-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== 结构级改版：玄金命运卡 ===== */
+h1,
+h2,
+.report-title,
+.card-back-mark {
+  font-family: var(--font-title);
+}
+
+.destiny-card-stage {
+  position: relative;
+  min-height: 430px;
+  display: grid;
+  place-items: center;
+  perspective: 1000px;
+}
+
+.destiny-card-back,
+.side-card {
+  border-radius: 28px;
+  border: 2.5px solid #1d1640;
+  background:
+    linear-gradient(135deg, #fff3d6, #ffe5f0),
+    radial-gradient(circle at 50% 38%, rgba(255, 206, 77, 0.6), transparent 58%),
+    #fff8ef;
+  box-shadow: 8px 10px 0 #1d1640;
+}
+
+.destiny-card-back {
+  width: min(78vw, 310px);
+  height: 430px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  transform: rotateY(-8deg) rotateZ(2deg);
+  animation: cardFloat 4.6s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.destiny-card-back::before {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border: 1.5px solid rgba(29, 22, 64, 0.32);
+  border-radius: 22px;
+  background:
+    repeating-conic-gradient(from 6deg, rgba(255, 94, 149, 0.16) 0 2deg, transparent 2deg 18deg),
+    radial-gradient(circle, transparent 0 39%, rgba(255, 206, 77, 0.42) 40% 41%, transparent 42%);
+}
+
+.card-back-mark {
+  position: relative;
+  z-index: 1;
+  width: 136px;
+  height: 136px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #1d1640;
+  font-size: 4.8rem;
+  border: 2.5px solid #1d1640;
+  background: linear-gradient(145deg, #ffce4d, #ff5e95);
+  box-shadow: 4px 4px 0 #1d1640;
+}
+
+.card-back-title,
+.card-back-lines {
+  position: absolute;
+  z-index: 1;
+  left: 28px;
+  right: 28px;
+  text-align: center;
+}
+
+.card-back-title {
+  bottom: 62px;
+  color: #1d1640;
+  letter-spacing: 0.18em;
+  font-weight: 900;
+}
+
+.card-back-lines {
+  bottom: 28px;
+  color: #4a3f6e;
+  font-size: 0.72rem;
+  display: grid;
+  gap: 3px;
+}
+
+.side-card {
+  position: absolute;
+  width: 132px;
+  height: 190px;
+  display: grid;
+  place-items: center;
+  color: #1d1640;
+  font-family: var(--font-title);
+  font-size: 3rem;
+  opacity: 0.92;
+}
+
+.side-card-left {
+  left: 0;
+  transform: rotateZ(-14deg) translateY(36px);
+}
+
+.side-card-right {
+  right: 0;
+  transform: rotateZ(13deg) translateY(-10px);
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: rotateY(-8deg) rotateZ(2deg) translateY(0); }
+  50% { transform: rotateY(-4deg) rotateZ(1deg) translateY(-14px); }
+}
+
+.setup-stage {
+  display: grid;
+  gap: 24px;
+}
+
+.setup-topbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 18px;
+}
+
+.setup-topbar h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 4.8rem);
+  letter-spacing: 0.04em;
+}
+
+.setup-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.setup-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 2px solid #1d1640;
+  color: #1d1640;
+  background: #fff;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 #1d1640;
+}
+
+.setup-step span {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #1d1640;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.setup-step.active {
+  color: #1d1640;
+  background: linear-gradient(120deg, #ff5e95, #ffce4d);
+  border-color: #1d1640;
+}
+
+.setup-step.active span {
+  background: #1d1640;
+  color: #ffce4d;
+}
+
+.scene-title {
+  max-width: 820px;
+}
+
+.scene-title h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin-bottom: 8px;
+  color: #1d1640;
+}
+
+.scene-title p {
+  color: #4a3f6e;
+  line-height: 1.8;
+}
+
+.fate-card-row,
+.talent-card-pool {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.fate-card {
+  position: relative;
+  min-height: 330px;
+  border-radius: 28px;
+  padding: 22px;
+  overflow: hidden;
+  text-align: left;
+  border: 2px solid #1d1640;
+  color: var(--ink);
+  background:
+    linear-gradient(160deg, #ffffff, #fdf3e8 80%);
+  box-shadow: 6px 6px 0 #1d1640;
+}
+
+/* 当 fate-card 同时带稀有度时，让稀有度配色覆盖底色 */
+.fate-card.rarity-common {
+  background: linear-gradient(160deg, #ffffff, #eef0f4 75%);
+  box-shadow: 6px 6px 0 #1d1640;
+}
+.fate-card.rarity-rare {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(95, 189, 255, 0.45), transparent 60%),
+    linear-gradient(160deg, #d8efff, #b0dfff 70%);
+  box-shadow: 6px 6px 0 #1d1640;
+}
+.fate-card.rarity-epic {
+  background:
+    radial-gradient(circle at 84% 16%, rgba(255, 94, 149, 0.42), transparent 60%),
+    radial-gradient(circle at 16% 88%, rgba(160, 107, 255, 0.4), transparent 55%),
+    linear-gradient(155deg, #ffe1ee, #f0dcff);
+  box-shadow: 6px 6px 0 var(--accent), 9px 9px 0 #1d1640;
+}
+.fate-card.rarity-legendary {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 206, 77, 0.7), transparent 60%),
+    radial-gradient(circle at 88% 80%, rgba(255, 94, 149, 0.5), transparent 60%),
+    linear-gradient(150deg, #fff0c2, #ffd9b3);
+  box-shadow: 6px 6px 0 var(--accent-5), 9px 9px 0 #1d1640;
+}
+
+.fate-card::before {
+  content: "";
+  position: absolute;
+  inset: 16px;
+  border-radius: 22px;
+  border: 1.5px dashed rgba(29, 22, 64, 0.18);
+  pointer-events: none;
+}
+
+.fate-card .card-kind {
+  display: inline-block;
+  margin-bottom: 42px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  font-weight: 900;
+}
+
+.fate-card strong {
+  display: block;
+  font-family: var(--font-title);
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  line-height: 1.16;
+  color: #1d1640;
+}
+
+.fate-card p {
+  color: #4a3f6e;
+  line-height: 1.75;
+}
+
+.fate-card .button {
+  position: absolute;
+  left: 22px;
+  bottom: 22px;
+}
+
+.talent-pick {
+  cursor: pointer;
+  min-height: 310px;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.talent-pick:hover {
+  transform: translate(-3px, -3px);
+}
+
+.talent-pick.selected {
+  box-shadow: 6px 6px 0 var(--accent-5), 9px 9px 0 #1d1640;
+}
+
+.selected-shelf {
+  min-height: 58px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 18px;
+  border: 2px dashed #1d1640;
+  background: #fff;
+}
+
+.selected-shelf span,
+.selected-shelf em {
+  color: #1d1640;
+}
+
+.selected-shelf span {
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffce4d, #ff5e95);
+  border: 1.5px solid #1d1640;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 #1d1640;
+}
+
+.goal-card-grid-large {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 980px;
+}
+
+.destiny-goal {
+  min-height: 160px;
+}
+
+.goal-omen {
+  max-width: 780px;
+}
+
+.confirm-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: 20px;
+}
+
+.setup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.setup-actions.vertical {
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 18px;
+}
+
+.choice.choice-risk {
+  border-color: #1d1640;
+  background: linear-gradient(145deg, #ffe2e6, #fff);
+  box-shadow: 4px 4px 0 var(--danger);
+}
+
+.choice.choice-unlocked {
+  border-color: #1d1640;
+  background: linear-gradient(145deg, #d8efff, #fff);
+  box-shadow: 4px 4px 0 var(--accent-4);
+}
+
+.choice.choice-judged:not(.locked) {
+  background: linear-gradient(145deg, #fff3d6, #fff);
+  box-shadow: 4px 4px 0 var(--accent-5);
+}
+
+.lock-lure {
+  display: block;
+  margin-top: 8px;
+  color: #4a3f6e;
+  font-size: 0.82rem;
+  font-style: normal;
+  line-height: 1.55;
+}
+
+.share-card {
+  margin: 22px 0;
+  padding: clamp(22px, 4vw, 36px);
+  border-radius: 34px;
+  border: 2px solid #1d1640;
+  background:
+    radial-gradient(circle at 86% 16%, rgba(255, 206, 77, 0.42), transparent 17rem),
+    radial-gradient(circle at 12% 92%, rgba(160, 107, 255, 0.32), transparent 18rem),
+    linear-gradient(145deg, #fff7ec, #ffe7f2);
+  box-shadow: 8px 8px 0 #1d1640;
+}
+
+.share-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.share-card h2 {
+  font-family: var(--font-title);
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  margin: 0 0 8px;
+  color: #1d1640;
+}
+
+.share-score {
+  width: 104px;
+  height: 104px;
+  display: grid;
+  place-items: center;
+  border-radius: 26px;
+  color: #1d1640;
+  background: linear-gradient(135deg, #ff5e95, #ffce4d);
+  border: 2.5px solid #1d1640;
+  font-size: 2.4rem;
+  font-weight: 900;
+  box-shadow: 4px 4px 0 #1d1640;
+}
+
+.share-card blockquote {
+  margin: 22px 0;
+  padding-left: 18px;
+  border-left: 5px solid var(--accent);
+  color: #1d1640;
+  line-height: 1.9;
+}
+
+.share-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.share-card-grid span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid #1d1640;
+  color: #1d1640;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 #1d1640;
+}
+
+@media (max-width: 900px) {
+  .setup-topbar,
+  .confirm-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .setup-steps {
+    justify-content: flex-start;
+  }
+
+  .fate-card-row,
+  .talent-card-pool,
+  .goal-card-grid-large {
+    grid-template-columns: 1fr;
+  }
+
+  .side-card {
+    display: none;
+  }
+
+  .share-card-head {
+    flex-direction: column;
+  }
+}
+
+/* ===== Premium Youth UI Override: 光感、留白、精致层级 ===== */
+:root {
+  --bg: #f8f5ff;
+  --bg-deep: #fff7f2;
+  --bg-mid: #edf7ff;
+  --surface: rgba(255, 255, 255, 0.68);
+  --surface-strong: rgba(255, 255, 255, 0.86);
+  --surface-soft: rgba(255, 255, 255, 0.52);
+  --ink: #151225;
+  --ink-on-dark: #151225;
+  --muted: #736a88;
+  --muted-on-dark: #736a88;
+  --rule: rgba(42, 34, 73, 0.1);
+  --rule-dark: rgba(42, 34, 73, 0.12);
+  --accent: #ff5f9e;
+  --accent-2: #41d6c3;
+  --accent-3: #8f6bff;
+  --accent-4: #4aa8ff;
+  --accent-5: #ffbd5b;
+  --danger: #ff5f73;
+  --good: #20c997;
+  --gold: #f4a940;
+  --shadow: rgba(72, 54, 135, 0.16);
+  --glow: rgba(143, 107, 255, 0.22);
+  --r-common: #a7b4c4;
+  --r-common-deep: #f1f4f8;
+  --r-rare: #4aa8ff;
+  --r-rare-deep: #e6f4ff;
+  --r-epic: #9b6dff;
+  --r-epic-deep: #f1e9ff;
+  --r-legendary: #ffae3d;
+  --r-legendary-deep: #fff0ce;
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% -8%, rgba(255, 95, 158, 0.2), transparent 34rem),
+    radial-gradient(circle at 92% 2%, rgba(74, 168, 255, 0.2), transparent 34rem),
+    radial-gradient(circle at 84% 92%, rgba(255, 189, 91, 0.18), transparent 34rem),
+    radial-gradient(circle at 12% 96%, rgba(143, 107, 255, 0.18), transparent 30rem),
+    linear-gradient(145deg, #fffaf6 0%, #f7f3ff 44%, #eef8ff 100%);
+}
+
+body::before {
+  background:
+    linear-gradient(115deg, transparent 0 42%, rgba(255, 255, 255, 0.5) 48%, transparent 56%),
+    radial-gradient(rgba(143, 107, 255, 0.16) 0.8px, transparent 1px);
+  background-size: 100% 100%, 28px 28px;
+  opacity: 0.4;
+  mask-image: linear-gradient(to bottom, black, transparent 82%);
+}
+
+body::after {
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(255, 95, 158, 0.18), rgba(74, 168, 255, 0.1) 42%, transparent 68%);
+  filter: blur(24px);
+}
+
+.app-shell {
+  width: min(1200px, calc(100% - 32px));
+  padding-top: 34px;
+}
+
+.hero,
+.hero-destiny,
+.panel,
+.card,
+.event-card,
+.report-card,
+.draw-card,
+.fate-card,
+.goal-card,
+.destiny-card-back,
+.side-card,
+.archetype-card,
+.outcome-reveal,
+.share-card,
+.result-narrative,
+.turning-card,
+.fortune-card,
+.choice,
+.life-token,
+.unlock-pill,
+.stat,
+.text-input,
+.share-box,
+.selected-shelf {
+  border: 1px solid rgba(255, 255, 255, 0.68) !important;
+  background-color: var(--surface) !important;
+  box-shadow:
+    0 24px 70px rgba(70, 54, 118, 0.12),
+    0 10px 30px rgba(74, 168, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86) !important;
+  backdrop-filter: blur(22px) saturate(135%);
+}
+
+.hero,
+.hero-destiny {
+  min-height: 560px;
+  border-radius: 40px;
+  padding: clamp(34px, 6vw, 68px);
+  background:
+    radial-gradient(circle at 82% 20%, rgba(255, 189, 91, 0.28), transparent 19rem),
+    radial-gradient(circle at 16% 88%, rgba(74, 168, 255, 0.22), transparent 20rem),
+    radial-gradient(circle at 58% 36%, rgba(255, 95, 158, 0.14), transparent 26rem),
+    rgba(255, 255, 255, 0.6) !important;
+}
+
+.hero::before,
+.hero-destiny::before {
+  background:
+    linear-gradient(115deg, transparent 0 40%, rgba(255, 255, 255, 0.58) 48%, transparent 58%),
+    radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.7), transparent 18rem);
+  opacity: 0.92;
+}
+
+.hero::after {
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  background:
+    radial-gradient(circle at 32% 22%, rgba(255, 255, 255, 0.72), transparent 36%),
+    conic-gradient(from 220deg, #ff6aa9, #ffbd5b, #41d6c3, #4aa8ff, #8f6bff, #ff6aa9);
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 28px 70px rgba(143, 107, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  text-shadow: 0 2px 18px rgba(50, 35, 92, 0.22);
+}
+
+.eyebrow,
+.tag,
+.tag.primary,
+.setup-step,
+.setup-step.active,
+.rarity-badge,
+.choice::after,
+.choice .requirement,
+.verdict-badge,
+.share-card-grid span,
+.selected-shelf span {
+  border: 1px solid rgba(42, 34, 73, 0.1) !important;
+  background: rgba(255, 255, 255, 0.64) !important;
+  color: var(--muted) !important;
+  box-shadow: 0 8px 22px rgba(70, 54, 118, 0.08) !important;
+  backdrop-filter: blur(14px) saturate(130%);
+}
+
+.eyebrow {
+  padding: 8px 14px;
+  letter-spacing: 0.16em;
+}
+
+h1 {
+  max-width: 760px;
+  color: var(--ink);
+  font-size: clamp(3.3rem, 9vw, 7.6rem);
+  letter-spacing: -0.105em;
+  text-shadow: none;
+}
+
+h1::after {
+  content: "";
+  display: block;
+  width: min(180px, 32vw);
+  height: 9px;
+  margin-top: 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-5), var(--accent-2), var(--accent-4));
+  box-shadow: 0 12px 30px rgba(255, 95, 158, 0.26);
+}
+
+h2,
+h3 {
+  color: var(--ink);
+}
+
+.subtitle,
+.scene-title p,
+.fate-card p,
+.archetype-card p,
+.goal-card em,
+.card .meta,
+.muted,
+.lock-lure {
+  color: var(--muted) !important;
+}
+
+.button,
+.button.secondary,
+.panel .button.secondary,
+.event-card .button.secondary,
+.card .button.secondary,
+.report-card + .layout .button.secondary {
+  border: 0 !important;
+  color: #fff !important;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent),
+    linear-gradient(135deg, #ff5f9e, #8f6bff 55%, #4aa8ff) !important;
+  box-shadow:
+    0 16px 34px rgba(143, 107, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34) !important;
+  padding: 13px 24px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.button.secondary,
+.panel .button.secondary,
+.event-card .button.secondary,
+.card .button.secondary,
+.report-card + .layout .button.secondary {
+  color: var(--ink) !important;
+  background: rgba(255, 255, 255, 0.62) !important;
+  border: 1px solid rgba(42, 34, 73, 0.1) !important;
+}
+
+.button.ghost,
+.panel .button.ghost,
+.event-card .button.ghost,
+.card .button.ghost {
+  color: var(--accent-3) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.button:hover,
+.choice:hover,
+.card.selectable:hover,
+.collection-list .card:hover,
+.goal-card:hover,
+.talent-pick:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 30px 80px rgba(70, 54, 118, 0.16),
+    0 10px 32px rgba(74, 168, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88) !important;
+}
+
+.button:active,
+.choice:active {
+  transform: translateY(0);
+}
+
+.panel.panel-attributes,
+.panel.panel-history,
+.panel.panel-archetype {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.panel.panel-attributes {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(65, 214, 195, 0.18), transparent 16rem),
+    rgba(255, 255, 255, 0.66) !important;
+}
+
+.panel.panel-history {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(143, 107, 255, 0.18), transparent 16rem),
+    rgba(255, 255, 255, 0.66) !important;
+}
+
+.panel.panel-archetype {
+  background:
+    radial-gradient(circle at 100% 100%, rgba(255, 189, 91, 0.2), transparent 16rem),
+    radial-gradient(circle at 0% 0%, rgba(255, 95, 158, 0.12), transparent 16rem),
+    rgba(255, 255, 255, 0.66) !important;
+}
+
+.event-card {
+  background:
+    radial-gradient(circle at 14% 4%, rgba(255, 95, 158, 0.16), transparent 18rem),
+    radial-gradient(circle at 86% 96%, rgba(74, 168, 255, 0.16), transparent 18rem),
+    rgba(255, 255, 255, 0.7) !important;
+}
+
+.event-card::before {
+  background: conic-gradient(from 120deg, rgba(255, 95, 158, 0.26), rgba(65, 214, 195, 0.2), rgba(143, 107, 255, 0.24), rgba(255, 189, 91, 0.22), rgba(255, 95, 158, 0.26));
+  filter: blur(16px);
+  opacity: 0.6;
+}
+
+.age,
+.score {
+  color: transparent !important;
+  background: linear-gradient(135deg, #ff5f9e, #8f6bff 52%, #4aa8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: none !important;
+}
+
+.event-text,
+.judge-line,
+.result-narrative {
+  border: 1px solid rgba(42, 34, 73, 0.08) !important;
+  border-left: 4px solid rgba(255, 95, 158, 0.5) !important;
+  background: rgba(255, 255, 255, 0.62) !important;
+  color: var(--ink) !important;
+}
+
+.choice {
+  background: rgba(255, 255, 255, 0.58) !important;
+  color: var(--ink) !important;
+}
+
+.choice strong {
+  color: var(--ink) !important;
+}
+
+.choice.choice-risk {
+  background: linear-gradient(145deg, rgba(255, 95, 115, 0.1), rgba(255, 255, 255, 0.66)) !important;
+}
+
+.choice.choice-unlocked {
+  background: linear-gradient(145deg, rgba(74, 168, 255, 0.12), rgba(255, 255, 255, 0.66)) !important;
+}
+
+.choice.choice-judged:not(.locked) {
+  background: linear-gradient(145deg, rgba(255, 189, 91, 0.14), rgba(255, 255, 255, 0.66)) !important;
+}
+
+.stat,
+.unlock-pill,
+.life-token {
+  background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.stat strong,
+.unlock-pill strong,
+.life-token strong,
+.history-item strong,
+.archetype-card strong,
+.fate-card strong,
+.goal-card strong {
+  color: var(--ink) !important;
+}
+
+.progress {
+  border: 0 !important;
+  height: 8px;
+  background: rgba(42, 34, 73, 0.08);
+}
+
+.progress span {
+  background: linear-gradient(90deg, var(--accent), var(--accent-3), var(--accent-4));
+  box-shadow: 0 8px 18px rgba(143, 107, 255, 0.24);
+}
+
+.attribute-row strong {
+  border: 0 !important;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent-4));
+  box-shadow: 0 10px 22px rgba(65, 214, 195, 0.22);
+}
+
+.draw-card,
+.fate-card {
+  overflow: hidden;
+}
+
+.draw-card::before,
+.fate-card::before {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.draw-card.rarity-common,
+.fate-card.rarity-common {
+  background:
+    radial-gradient(circle at 16% 14%, rgba(167, 180, 196, 0.2), transparent 62%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.78), rgba(241, 244, 248, 0.72)) !important;
+}
+
+.draw-card.rarity-rare,
+.fate-card.rarity-rare,
+.goal-card.selected {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(74, 168, 255, 0.24), transparent 62%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.78), rgba(230, 244, 255, 0.74)) !important;
+}
+
+.draw-card.rarity-epic,
+.fate-card.rarity-epic {
+  background:
+    radial-gradient(circle at 84% 14%, rgba(155, 109, 255, 0.26), transparent 62%),
+    radial-gradient(circle at 18% 90%, rgba(255, 95, 158, 0.16), transparent 58%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.78), rgba(241, 233, 255, 0.75)) !important;
+}
+
+.draw-card.rarity-legendary,
+.fate-card.rarity-legendary {
+  background:
+    radial-gradient(circle at 18% 16%, rgba(255, 189, 91, 0.36), transparent 62%),
+    radial-gradient(circle at 88% 82%, rgba(255, 95, 158, 0.16), transparent 58%),
+    linear-gradient(155deg, rgba(255, 255, 255, 0.8), rgba(255, 240, 206, 0.78)) !important;
+}
+
+.draw-card.rarity-common .rarity-badge { color: #687789 !important; }
+.draw-card.rarity-rare .rarity-badge { color: #1f78c8 !important; }
+.draw-card.rarity-epic .rarity-badge { color: #7342df !important; }
+.draw-card.rarity-legendary .rarity-badge { color: #b86c00 !important; }
+
+.draw-card.rarity-common h3 { color: #344155 !important; }
+.draw-card.rarity-rare h3 { color: #165f9f !important; }
+.draw-card.rarity-epic h3 { color: #5632a5 !important; }
+.draw-card.rarity-legendary h3 {
+  color: #965b00 !important;
+  text-shadow: none !important;
+}
+
+.draw-card.selectable.selected,
+.talent-pick.selected,
+.card.selected,
+.goal-card.selected {
+  border-color: rgba(143, 107, 255, 0.36) !important;
+  box-shadow:
+    0 0 0 1px rgba(143, 107, 255, 0.18),
+    0 24px 62px rgba(143, 107, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88) !important;
+}
+
+.destiny-card-back,
+.side-card {
+  background:
+    radial-gradient(circle at 48% 34%, rgba(255, 189, 91, 0.22), transparent 58%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.72), rgba(247, 243, 255, 0.7)) !important;
+}
+
+.card-back-mark,
+.orb-core,
+.share-score {
+  border: 1px solid rgba(255, 255, 255, 0.72) !important;
+  color: #fff !important;
+  background:
+    radial-gradient(circle at 32% 24%, rgba(255, 255, 255, 0.68), transparent 36%),
+    linear-gradient(135deg, #ff5f9e, #8f6bff 54%, #4aa8ff) !important;
+  box-shadow:
+    0 24px 52px rgba(143, 107, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58) !important;
+}
+
+.orb-ring {
+  background: conic-gradient(from 0deg, rgba(255, 95, 158, 0.9), rgba(255, 189, 91, 0.86), rgba(65, 214, 195, 0.84), rgba(74, 168, 255, 0.86), rgba(143, 107, 255, 0.9), rgba(255, 95, 158, 0.9));
+  filter: drop-shadow(0 24px 52px rgba(143, 107, 255, 0.18));
+}
+
+.orb-ring::before {
+  background:
+    repeating-conic-gradient(from 8deg, rgba(255, 255, 255, 0.22) 0 3deg, transparent 3deg 18deg),
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 48%, transparent 49%);
+}
+
+.orb-caption,
+.omen-line.compact {
+  border: 1px solid rgba(42, 34, 73, 0.09) !important;
+  background: rgba(255, 255, 255, 0.62) !important;
+  color: var(--muted) !important;
+  box-shadow: 0 14px 32px rgba(70, 54, 118, 0.1) !important;
+  backdrop-filter: blur(16px);
+}
+
+.report-card,
+.share-card {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255, 189, 91, 0.2), transparent 22rem),
+    radial-gradient(circle at 8% 4%, rgba(255, 95, 158, 0.15), transparent 22rem),
+    radial-gradient(circle at 100% 96%, rgba(74, 168, 255, 0.16), transparent 22rem),
+    rgba(255, 255, 255, 0.68) !important;
+}
+
+.report-card::after {
+  border: 0;
+  background: conic-gradient(from 40deg, rgba(255, 95, 158, 0.28), rgba(65, 214, 195, 0.2), rgba(143, 107, 255, 0.24), rgba(255, 189, 91, 0.22), rgba(255, 95, 158, 0.28));
+  filter: blur(8px);
+  opacity: 0.55;
+}
+
+.share-card blockquote {
+  color: var(--ink);
+  border-left-color: rgba(143, 107, 255, 0.44);
+}
+
+.text-input,
+.share-box {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.58) !important;
+}
+
+.text-input:focus {
+  border-color: rgba(143, 107, 255, 0.38) !important;
+  box-shadow:
+    0 0 0 4px rgba(143, 107, 255, 0.1),
+    0 18px 42px rgba(70, 54, 118, 0.12) !important;
+}
+
+.empty {
+  border: 1px dashed rgba(42, 34, 73, 0.18) !important;
+  background: rgba(255, 255, 255, 0.46) !important;
+}
+
+.toast {
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  background: rgba(255, 255, 255, 0.72) !important;
+  color: var(--ink);
+  box-shadow: 0 18px 44px rgba(70, 54, 118, 0.14) !important;
+  backdrop-filter: blur(18px);
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .hero-destiny {
+    min-height: auto;
+    border-radius: 30px;
+  }
+
+  h1 {
+    letter-spacing: -0.08em;
+  }
+}
+
+/* ===== High Taste Editorial UI Override: 高审美字体与精品产品质感 ===== */
+:root {
+  --bg: #f7f3ee;
+  --surface: rgba(255, 255, 255, 0.74);
+  --surface-strong: rgba(255, 255, 255, 0.92);
+  --surface-soft: rgba(255, 255, 255, 0.56);
+  --ink: #17131f;
+  --ink-on-dark: #17131f;
+  --muted: #746d80;
+  --muted-on-dark: #746d80;
+  --rule: rgba(31, 25, 48, 0.09);
+  --rule-dark: rgba(31, 25, 48, 0.1);
+  --accent: #d95f90;
+  --accent-2: #36b9a7;
+  --accent-3: #7357d8;
+  --accent-4: #2e91db;
+  --accent-5: #d99a3f;
+  --gold: #c88b32;
+  --shadow: rgba(55, 42, 86, 0.12);
+  --glow: rgba(115, 87, 216, 0.18);
+  --font: "HarmonyOS Sans SC", "MiSans", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+  --font-title: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  font-family: var(--font);
+  letter-spacing: -0.012em;
+  background:
+    radial-gradient(circle at 10% -12%, rgba(217, 95, 144, 0.12), transparent 34rem),
+    radial-gradient(circle at 88% -8%, rgba(46, 145, 219, 0.13), transparent 32rem),
+    radial-gradient(circle at 82% 98%, rgba(217, 154, 63, 0.12), transparent 34rem),
+    linear-gradient(145deg, #fffdf9 0%, #f8f3ee 44%, #eef6fb 100%) !important;
+}
+
+body::before {
+  background:
+    linear-gradient(120deg, transparent 0 45%, rgba(255, 255, 255, 0.44) 50%, transparent 58%),
+    radial-gradient(rgba(40, 34, 58, 0.055) 0.7px, transparent 0.8px) !important;
+  background-size: 100% 100%, 30px 30px !important;
+  opacity: 0.36 !important;
+}
+
+body::after {
+  background: radial-gradient(circle, rgba(217, 95, 144, 0.12), rgba(46, 145, 219, 0.08) 42%, transparent 70%) !important;
+  filter: blur(36px) !important;
+}
+
+.app-shell {
+  width: min(1188px, calc(100% - 36px));
+  padding-top: 42px;
+}
+
+h1,
+h2,
+h3,
+.report-title,
+.fate-card strong,
+.archetype-card strong,
+.goal-card strong,
+.card-back-title {
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+h1 {
+  max-width: 780px;
+  font-size: clamp(3.15rem, 8.4vw, 7.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em !important;
+  color: transparent !important;
+  background:
+    linear-gradient(112deg, #17131f 0%, #2b214c 48%, #7357d8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+h1::after {
+  width: min(128px, 26vw);
+  height: 3px;
+  margin-top: 24px;
+  background: linear-gradient(90deg, rgba(217, 95, 144, 0.8), rgba(217, 154, 63, 0.7), rgba(46, 145, 219, 0.62));
+  box-shadow: 0 10px 26px rgba(115, 87, 216, 0.12);
+}
+
+h2 {
+  font-size: clamp(1.58rem, 3.3vw, 2.42rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+h3 {
+  font-family: var(--font);
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+p,
+.subtitle,
+.scene-title p,
+.fate-card p,
+.archetype-card p,
+.goal-card em,
+.card .meta,
+.muted,
+.lock-lure {
+  line-height: 1.82;
+}
+
+.subtitle {
+  max-width: 680px;
+  color: #5d566f !important;
+  font-size: clamp(1rem, 1.7vw, 1.16rem);
+}
+
+.hero,
+.hero-destiny {
+  border-radius: 44px !important;
+  min-height: 570px;
+  padding: clamp(42px, 6.4vw, 76px);
+  background:
+    radial-gradient(circle at 82% 18%, rgba(217, 154, 63, 0.16), transparent 20rem),
+    radial-gradient(circle at 12% 88%, rgba(46, 145, 219, 0.14), transparent 22rem),
+    linear-gradient(140deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.56)) !important;
+  box-shadow:
+    0 42px 110px rgba(50, 38, 78, 0.13),
+    0 18px 42px rgba(46, 145, 219, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.hero::after {
+  width: clamp(138px, 18vw, 220px);
+  height: clamp(138px, 18vw, 220px);
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.72), transparent 34%),
+    conic-gradient(from 225deg, #d95f90, #d99a3f, #36b9a7, #2e91db, #7357d8, #d95f90) !important;
+  box-shadow:
+    0 30px 72px rgba(115, 87, 216, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.68) !important;
+  opacity: 0.82;
+}
+
+.hero-actions,
+.actions {
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.hero-showcase,
+.layout,
+.report-grid,
+.choice-list,
+.collection-list,
+.fate-card-row,
+.talent-card-pool,
+.goal-card-grid-large {
+  gap: 18px;
+}
+
+.panel,
+.card,
+.event-card,
+.report-card,
+.draw-card,
+.fate-card,
+.goal-card,
+.destiny-card-back,
+.side-card,
+.archetype-card,
+.outcome-reveal,
+.share-card,
+.result-narrative,
+.turning-card,
+.fortune-card,
+.choice,
+.life-token,
+.unlock-pill,
+.stat,
+.text-input,
+.share-box,
+.selected-shelf {
+  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+  border-radius: 30px !important;
+  background-color: rgba(255, 255, 255, 0.72) !important;
+  box-shadow:
+    0 26px 74px rgba(50, 38, 78, 0.105),
+    0 10px 26px rgba(46, 145, 219, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(24px) saturate(125%);
+}
+
+.panel,
+.event-card,
+.report-card {
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.card,
+.choice,
+.draw-card,
+.fate-card,
+.goal-card,
+.turning-card,
+.result-narrative,
+.fortune-card {
+  border-radius: 26px !important;
+}
+
+.button,
+.button.secondary,
+.panel .button.secondary,
+.event-card .button.secondary,
+.card .button.secondary,
+.report-card + .layout .button.secondary {
+  min-height: 46px;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.button:not(.secondary):not(.ghost) {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 36%),
+    linear-gradient(135deg, #d95f90, #7357d8 54%, #2e91db) !important;
+  box-shadow:
+    0 18px 36px rgba(115, 87, 216, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.36) !important;
+}
+
+.button.secondary,
+.panel .button.secondary,
+.event-card .button.secondary,
+.card .button.secondary,
+.report-card + .layout .button.secondary {
+  background: rgba(255, 255, 255, 0.68) !important;
+  color: #2f2840 !important;
+  box-shadow:
+    0 14px 34px rgba(50, 38, 78, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86) !important;
+}
+
+.button:hover,
+.choice:hover,
+.card.selectable:hover,
+.collection-list .card:hover,
+.goal-card:hover,
+.talent-pick:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 34px 84px rgba(50, 38, 78, 0.14),
+    0 14px 34px rgba(46, 145, 219, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.eyebrow,
+.tag,
+.tag.primary,
+.setup-step,
+.setup-step.active,
+.rarity-badge,
+.choice::after,
+.choice .requirement,
+.verdict-badge,
+.share-card-grid span,
+.selected-shelf span {
+  border-radius: 999px !important;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.66) !important;
+  color: #6d647e !important;
+}
+
+.eyebrow {
+  padding: 8px 13px;
+  color: #7d5786 !important;
+}
+
+.section-title {
+  margin-bottom: 18px;
+}
+
+.section-title p {
+  color: #746d80 !important;
+}
+
+.age,
+.score {
+  font-family: var(--font-title);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  background: linear-gradient(130deg, #17131f 0%, #7357d8 54%, #d95f90 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+.event-text,
+.judge-line,
+.result-narrative {
+  border-left: 3px solid rgba(115, 87, 216, 0.42) !important;
+  background: rgba(255, 255, 255, 0.64) !important;
+}
+
+.choice {
+  padding: 18px 20px;
+}
+
+.choice::after {
+  color: #7357d8 !important;
+}
+
+.stat strong,
+.unlock-pill strong,
+.life-token strong {
+  font-family: var(--font-title);
+  font-weight: 700;
+}
+
+.progress {
+  height: 7px;
+}
+
+.progress span {
+  background: linear-gradient(90deg, #d95f90, #7357d8, #2e91db);
+}
+
+.draw-card,
+.fate-card {
+  min-height: 300px;
+}
+
+.draw-card h3,
+.fate-card strong,
+.report-title,
+.share-card h2 {
+  letter-spacing: -0.035em;
+}
+
+.draw-card .rarity-badge {
+  right: 14px;
+  top: 14px;
+}
+
+.draw-card.rarity-common,
+.fate-card.rarity-common {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.82), rgba(244, 246, 249, 0.72)),
+    radial-gradient(circle at 18% 18%, rgba(167, 180, 196, 0.18), transparent 62%) !important;
+}
+
+.draw-card.rarity-rare,
+.fate-card.rarity-rare,
+.goal-card.selected {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.84), rgba(232, 244, 255, 0.76)),
+    radial-gradient(circle at 16% 18%, rgba(46, 145, 219, 0.18), transparent 62%) !important;
+}
+
+.draw-card.rarity-epic,
+.fate-card.rarity-epic {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.84), rgba(242, 236, 255, 0.78)),
+    radial-gradient(circle at 84% 18%, rgba(115, 87, 216, 0.2), transparent 62%),
+    radial-gradient(circle at 18% 92%, rgba(217, 95, 144, 0.11), transparent 56%) !important;
+}
+
+.draw-card.rarity-legendary,
+.fate-card.rarity-legendary {
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.86), rgba(255, 244, 224, 0.8)),
+    radial-gradient(circle at 18% 18%, rgba(217, 154, 63, 0.24), transparent 62%),
+    radial-gradient(circle at 88% 82%, rgba(217, 95, 144, 0.1), transparent 56%) !important;
+}
+
+.draw-card.rarity-common h3 { color: #394253 !important; }
+.draw-card.rarity-rare h3 { color: #1f6fa9 !important; }
+.draw-card.rarity-epic h3 { color: #4f3aa0 !important; }
+.draw-card.rarity-legendary h3 { color: #8c5b15 !important; }
+
+.draw-card.rarity-common .rarity-badge { color: #6b7686 !important; }
+.draw-card.rarity-rare .rarity-badge { color: #2174ad !important; }
+.draw-card.rarity-epic .rarity-badge { color: #5f45bc !important; }
+.draw-card.rarity-legendary .rarity-badge { color: #9b6518 !important; }
+
+.draw-card.rarity-legendary,
+.fate-card.rarity-legendary {
+  animation: luxuryPulse 6s ease-in-out infinite;
+}
+
+@keyframes luxuryPulse {
+  0%, 100% {
+    box-shadow:
+      0 26px 74px rgba(50, 38, 78, 0.105),
+      0 10px 26px rgba(217, 154, 63, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  }
+  50% {
+    box-shadow:
+      0 32px 84px rgba(50, 38, 78, 0.13),
+      0 12px 34px rgba(217, 154, 63, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+  }
+}
+
+.destiny-card-back {
+  transform: rotateY(-7deg) rotateZ(1.2deg);
+}
+
+.card-back-mark,
+.orb-core,
+.share-score {
+  background:
+    radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.68), transparent 34%),
+    linear-gradient(135deg, #d95f90, #7357d8 54%, #2e91db) !important;
+}
+
+.orb-ring {
+  background: conic-gradient(from 0deg, rgba(217, 95, 144, 0.82), rgba(217, 154, 63, 0.72), rgba(54, 185, 167, 0.72), rgba(46, 145, 219, 0.78), rgba(115, 87, 216, 0.82), rgba(217, 95, 144, 0.82)) !important;
+}
+
+.report-card,
+.share-card {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(217, 154, 63, 0.14), transparent 22rem),
+    radial-gradient(circle at 8% 4%, rgba(217, 95, 144, 0.1), transparent 22rem),
+    radial-gradient(circle at 100% 96%, rgba(46, 145, 219, 0.12), transparent 22rem),
+    rgba(255, 255, 255, 0.74) !important;
+}
+
+.share-score {
+  font-family: var(--font-title);
+}
+
+.share-card blockquote {
+  border-left-width: 3px;
+  border-left-color: rgba(115, 87, 216, 0.34);
+}
+
+.toast {
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    width: min(100% - 20px, 720px);
+    padding-top: 18px;
+  }
+
+  .hero,
+  .hero-destiny {
+    border-radius: 32px !important;
+    padding: 30px 22px;
+  }
+
+  h1 {
+    letter-spacing: -0.045em !important;
+  }
+}
+
+/* ===== 品质差异化：普通 / 稀有 / 杰出 / 传说 ===== */
+:root {
+  --quality-common: #8994a6;
+  --quality-common-soft: #f2f5f8;
+  --quality-rare: #2589df;
+  --quality-rare-soft: #e4f3ff;
+  --quality-epic: #7154d9;
+  --quality-epic-soft: #eee8ff;
+  --quality-legendary: #c78322;
+  --quality-legendary-soft: #fff0d4;
+}
+
+.draw-card,
+.fate-card {
+  isolation: isolate;
+}
+
+.draw-card::after,
+.fate-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.draw-card > *,
+.fate-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.draw-card .rarity-badge,
+.fate-card .rarity-badge {
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.64) !important;
+  font-family: var(--font);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  box-shadow:
+    0 10px 24px rgba(32, 24, 54, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34) !important;
+}
+
+.draw-card.rarity-common,
+.fate-card.rarity-common {
+  border-color: rgba(137, 148, 166, 0.28) !important;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(137, 148, 166, 0.18), transparent 14rem),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.9), rgba(242, 245, 248, 0.78)) !important;
+}
+
+.draw-card.rarity-common::after,
+.fate-card.rarity-common::after {
+  background:
+    linear-gradient(90deg, rgba(137, 148, 166, 0.28) 0 5px, transparent 5px),
+    radial-gradient(circle at 90% 12%, rgba(137, 148, 166, 0.14), transparent 9rem);
+}
+
+.draw-card.rarity-common .rarity-badge,
+.fate-card.rarity-common .rarity-badge {
+  background: linear-gradient(135deg, #8994a6, #b6c0ce) !important;
+}
+
+.draw-card.rarity-common h3,
+.fate-card.rarity-common strong {
+  color: #3d4656 !important;
+}
+
+.draw-card.rarity-rare,
+.fate-card.rarity-rare {
+  border-color: rgba(37, 137, 223, 0.32) !important;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(37, 137, 223, 0.23), transparent 14rem),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.9), rgba(228, 243, 255, 0.82)) !important;
+  box-shadow:
+    0 26px 74px rgba(37, 137, 223, 0.12),
+    0 10px 26px rgba(46, 145, 219, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.draw-card.rarity-rare::after,
+.fate-card.rarity-rare::after {
+  background:
+    linear-gradient(90deg, rgba(37, 137, 223, 0.72) 0 5px, transparent 5px),
+    radial-gradient(circle at 90% 12%, rgba(37, 137, 223, 0.2), transparent 9rem);
+}
+
+.draw-card.rarity-rare .rarity-badge,
+.fate-card.rarity-rare .rarity-badge {
+  background: linear-gradient(135deg, #2589df, #65c4ff) !important;
+}
+
+.draw-card.rarity-rare h3,
+.fate-card.rarity-rare strong {
+  color: #145f9f !important;
+}
+
+.draw-card.rarity-epic,
+.fate-card.rarity-epic {
+  border-color: rgba(113, 84, 217, 0.36) !important;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(113, 84, 217, 0.25), transparent 14rem),
+    radial-gradient(circle at 88% 82%, rgba(217, 95, 144, 0.1), transparent 12rem),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.9), rgba(238, 232, 255, 0.84)) !important;
+  box-shadow:
+    0 28px 80px rgba(113, 84, 217, 0.14),
+    0 10px 28px rgba(217, 95, 144, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.draw-card.rarity-epic::after,
+.fate-card.rarity-epic::after {
+  background:
+    linear-gradient(90deg, rgba(113, 84, 217, 0.78) 0 5px, transparent 5px),
+    radial-gradient(circle at 90% 12%, rgba(113, 84, 217, 0.22), transparent 9rem);
+}
+
+.draw-card.rarity-epic .rarity-badge,
+.fate-card.rarity-epic .rarity-badge {
+  background: linear-gradient(135deg, #7154d9, #d95f90) !important;
+}
+
+.draw-card.rarity-epic h3,
+.fate-card.rarity-epic strong {
+  color: #4d37a3 !important;
+}
+
+.draw-card.rarity-legendary,
+.fate-card.rarity-legendary {
+  border-color: rgba(199, 131, 34, 0.42) !important;
+  background:
+    radial-gradient(circle at 12% 12%, rgba(199, 131, 34, 0.3), transparent 14rem),
+    radial-gradient(circle at 86% 82%, rgba(255, 205, 115, 0.2), transparent 13rem),
+    linear-gradient(150deg, rgba(255, 255, 255, 0.92), rgba(255, 240, 212, 0.86)) !important;
+  box-shadow:
+    0 30px 86px rgba(199, 131, 34, 0.16),
+    0 12px 32px rgba(217, 95, 144, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94) !important;
+}
+
+.draw-card.rarity-legendary::after,
+.fate-card.rarity-legendary::after {
+  background:
+    linear-gradient(90deg, rgba(199, 131, 34, 0.86) 0 5px, transparent 5px),
+    radial-gradient(circle at 90% 12%, rgba(199, 131, 34, 0.25), transparent 9rem),
+    linear-gradient(125deg, transparent 0 38%, rgba(255, 255, 255, 0.48) 48%, transparent 58%);
+}
+
+.draw-card.rarity-legendary .rarity-badge,
+.fate-card.rarity-legendary .rarity-badge {
+  background: linear-gradient(135deg, #c78322, #f0bd62) !important;
+}
+
+.draw-card.rarity-legendary h3,
+.fate-card.rarity-legendary strong {
+  color: #875712 !important;
+}
+
+.draw-card.rarity-common.selected,
+.fate-card.rarity-common.selected {
+  border-color: rgba(137, 148, 166, 0.5) !important;
+}
+
+.draw-card.rarity-rare.selected,
+.fate-card.rarity-rare.selected {
+  border-color: rgba(37, 137, 223, 0.54) !important;
+  box-shadow:
+    0 0 0 1px rgba(37, 137, 223, 0.24),
+    0 28px 76px rgba(37, 137, 223, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.draw-card.rarity-epic.selected,
+.fate-card.rarity-epic.selected {
+  border-color: rgba(113, 84, 217, 0.58) !important;
+  box-shadow:
+    0 0 0 1px rgba(113, 84, 217, 0.26),
+    0 30px 82px rgba(113, 84, 217, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+}
+
+.draw-card.rarity-legendary.selected,
+.fate-card.rarity-legendary.selected {
+  border-color: rgba(199, 131, 34, 0.62) !important;
+  box-shadow:
+    0 0 0 1px rgba(199, 131, 34, 0.28),
+    0 32px 88px rgba(199, 131, 34, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.94) !important;
+}
+
+/* ============================================================
+   Unification v2 · 字体统一 + 卡片信息层精简
+   - 全局单一无衬线，移除衬线/混排
+   - 卡片只保留：右上角 rarity-badge（品质）+ 大标题 + 描述 + 标签 + 操作
+   - 隐藏顶部彩色 bar（::after）和左侧色条（::before），仅靠 badge 配色与边框区分品质
+   - 隐藏 .card-kind（与 rarity-badge 信息冗余），改由顶部小标题 H2 承担"这是哪类牌"
+   ============================================================ */
+
+:root {
+  --font-ui: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "MiSans",
+    "Noto Sans CJK SC", "Hiragino Sans GB", "Source Han Sans SC",
+    system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+.app-shell,
+.hero h1,
+.hero .eyebrow,
+.hero .subtitle,
+.scene-title h2,
+.scene-title p,
+.fate-card,
+.fate-card strong,
+.fate-card p,
+.fate-card .card-kind,
+.fate-card .rarity-badge,
+.fate-card .tag,
+.draw-card,
+.draw-card strong,
+.draw-card p,
+.draw-card .rarity-badge,
+.tag,
+.tag.primary,
+.button,
+h1, h2, h3, h4, h5, h6,
+p, span, em, strong, small, label, li, a {
+  font-family: var(--font-ui) !important;
+  font-feature-settings: "tnum" 1, "ss01" 1;
+}
+
+.fate-card,
+.draw-card {
+  position: relative;
+  padding: 22px 22px 20px !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(20, 22, 30, 0.08) !important;
+  box-shadow: 0 1px 2px rgba(20, 22, 30, 0.04),
+    0 8px 28px rgba(20, 22, 30, 0.06) !important;
+  overflow: hidden;
+}
+
+/* 移除一切顶部彩条/左侧色条/装饰底纹（::before / ::after） */
+.fate-card::before,
+.fate-card::after,
+.draw-card::before,
+.draw-card::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+/* 隐藏冗余的"出生背景 / 命格 / 怪癖"小标题（这层信息由场景标题统一承担） */
+.fate-card .card-kind,
+.draw-card .card-kind {
+  display: none !important;
+}
+
+/* rarity-badge：右上角小药丸，唯一保留的品质标识 */
+.fate-card .rarity-badge,
+.draw-card .rarity-badge {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  left: auto !important;
+  padding: 3px 10px !important;
+  height: auto !important;
+  width: auto !important;
+  background: rgba(20, 22, 30, 0.05) !important;
+  color: rgba(20, 22, 30, 0.62) !important;
+  border: 1px solid rgba(20, 22, 30, 0.08) !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.06em !important;
+  line-height: 1.4 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* 大标题：纯黑无衬线，统一字号字重 */
+.fate-card strong,
+.draw-card strong {
+  display: block;
+  margin: 0 0 8px 0 !important;
+  padding: 0 !important;
+  font-size: 26px !important;
+  line-height: 1.25 !important;
+  font-weight: 700 !important;
+  color: #15161c !important;
+  letter-spacing: -0.005em !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: initial !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+}
+
+/* 描述文字：低饱和灰、统一字号 */
+.fate-card p,
+.draw-card p {
+  margin: 0 0 14px 0 !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  color: rgba(20, 22, 30, 0.62) !important;
+  font-weight: 400 !important;
+}
+
+/* 标签：低对比、单层 */
+.fate-card .tag-row,
+.draw-card .tag-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 6px !important;
+  margin: 0 0 14px 0 !important;
+}
+
+.fate-card .tag,
+.draw-card .tag,
+.fate-card .tag.primary,
+.draw-card .tag.primary {
+  padding: 3px 9px !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0 !important;
+  background: rgba(20, 22, 30, 0.04) !important;
+  color: rgba(20, 22, 30, 0.7) !important;
+  border: 1px solid rgba(20, 22, 30, 0.06) !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* 卡内按钮：低调副操作 */
+.fate-card .button,
+.draw-card .button {
+  margin-top: auto !important;
+  padding: 8px 14px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  background: rgba(20, 22, 30, 0.04) !important;
+  color: rgba(20, 22, 30, 0.78) !important;
+  border: 1px solid rgba(20, 22, 30, 0.08) !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+.fate-card .button:hover,
+.draw-card .button:hover {
+  background: rgba(20, 22, 30, 0.07) !important;
+}
+
+/* 品质区分：仅通过 rarity-badge 配色，卡身保持纯白 */
+.fate-card.rarity-common,
+.draw-card.rarity-common {
+  border-color: rgba(20, 22, 30, 0.08) !important;
+  background: #ffffff !important;
+}
+.fate-card.rarity-common .rarity-badge,
+.draw-card.rarity-common .rarity-badge {
+  background: rgba(122, 132, 148, 0.1) !important;
+  color: #6b7686 !important;
+  border-color: rgba(122, 132, 148, 0.18) !important;
+}
+
+.fate-card.rarity-rare,
+.draw-card.rarity-rare {
+  border-color: rgba(36, 117, 196, 0.18) !important;
+  background: #ffffff !important;
+}
+.fate-card.rarity-rare .rarity-badge,
+.draw-card.rarity-rare .rarity-badge {
+  background: rgba(36, 117, 196, 0.1) !important;
+  color: #2475c4 !important;
+  border-color: rgba(36, 117, 196, 0.22) !important;
+}
+
+.fate-card.rarity-epic,
+.draw-card.rarity-epic {
+  border-color: rgba(113, 84, 217, 0.2) !important;
+  background: #ffffff !important;
+}
+.fate-card.rarity-epic .rarity-badge,
+.draw-card.rarity-epic .rarity-badge {
+  background: rgba(113, 84, 217, 0.1) !important;
+  color: #6c4ed3 !important;
+  border-color: rgba(113, 84, 217, 0.22) !important;
+}
+
+.fate-card.rarity-legendary,
+.draw-card.rarity-legendary {
+  border-color: rgba(199, 131, 34, 0.24) !important;
+  background: #ffffff !important;
+}
+.fate-card.rarity-legendary .rarity-badge,
+.draw-card.rarity-legendary .rarity-badge {
+  background: rgba(199, 131, 34, 0.12) !important;
+  color: #b07a2a !important;
+  border-color: rgba(199, 131, 34, 0.26) !important;
+}
+
+/* 选中态：仅靠 ring，不再叠多层 shadow */
+.fate-card.selected,
+.draw-card.selected,
+.fate-card.rarity-common.selected,
+.fate-card.rarity-rare.selected,
+.fate-card.rarity-epic.selected,
+.fate-card.rarity-legendary.selected,
+.draw-card.rarity-common.selected,
+.draw-card.rarity-rare.selected,
+.draw-card.rarity-epic.selected,
+.draw-card.rarity-legendary.selected {
+  border-color: rgba(20, 22, 30, 0.85) !important;
+  box-shadow: 0 0 0 2px rgba(20, 22, 30, 0.85),
+    0 12px 32px rgba(20, 22, 30, 0.1) !important;
+}
+
+/* 场景标题：与卡内层级拉开 */
+.scene-title h2 {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #15161c !important;
+  letter-spacing: -0.005em !important;
+}
+.scene-title p {
+  font-size: 14px !important;
+  color: rgba(20, 22, 30, 0.6) !important;
+  font-weight: 400 !important;
+}
+
+/* Hero 标题统一无衬线 */
+.hero h1 {
+  font-weight: 800 !important;
+  letter-spacing: -0.01em !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: #15161c !important;
+}
+.hero .eyebrow {
+  font-weight: 600 !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase;
+  color: rgba(20, 22, 30, 0.5) !important;
+}
+.hero .subtitle {
+  font-weight: 400 !important;
+  color: rgba(20, 22, 30, 0.66) !important;
+}
+
